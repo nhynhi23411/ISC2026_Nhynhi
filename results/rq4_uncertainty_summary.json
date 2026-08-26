@@ -1,0 +1,9 @@
+{
+  "n_predictions": 39186,
+  "n_rotating_only": 15666,
+  "scope": "rotating_stress conditions only; complete_six excluded because n_missing_8=0 for them by construction (confounds run-length with disease scale)",
+  "spearman_missing_run_vs_scaled_abs_error": -0.019841569024921096,
+  "spearman_missing_run_vs_scaled_width80": -0.06334702624550045,
+  "spearman_missing_run_vs_scaled_width90": -0.03875476323396814,
+  "interpretation": "Positive correlations (computed on rotating conditions only, using series-scale-normalized error/width to remove the disease-scale confound) mean forecasts made after a longer run of non-reporting have both larger relative errors and wider relative quantile intervals -- i.e. interval width is a usable signal of which district-week forecasts are less reliable (brief RQ4). A naive, unscaled, all-condition version of this correlation is confounded by scale and gives the opposite sign; see rq4_uncertainty_by_missing_run.csv condition_group='complete_six' vs 'rotating_stress' rows."
+}

@@ -1,0 +1,16 @@
+{
+  "n_districts": 44,
+  "rotating_stress": {
+    "n_districts_with_estimate": 37,
+    "n_districts_with_positive_gain": 29,
+    "share_positive": 0.7838
+  },
+  "complete_six": {
+    "n_districts_with_estimate": 37,
+    "n_districts_with_positive_gain": 27,
+    "share_positive": 0.7297
+  },
+  "spearman_gain_vs_own_district_unreported_rate": 0.10579564415832438,
+  "spearman_gain_vs_zero_count_share": 0.2859174964438122,
+  "interpretation": "share_positive close to 1 means the propensity gain generalizes across nearly all districts rather than being driven by one or two outliers. A positive spearman correlation with own_unreported_rate/zero_count_share would support brief RQ3's hypothesis that benefits concentrate where reporting is patchiest or incidence is most intermittent."
+}

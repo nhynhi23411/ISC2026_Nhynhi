@@ -1,0 +1,17 @@
+{
+  "n_person_period_rows": 623,
+  "n_events_reappear": 37,
+  "n_rotating_conditions": 10,
+  "full_model": {
+    "coef_duration": -0.1190280238568036,
+    "coef_duration_sq": 0.0007035952900877731,
+    "coef_log1p_volume": 0.6973063924044157,
+    "pvalue_duration": 2.749237186831595e-06,
+    "pvalue_log1p_volume": 0.2793279302569587,
+    "auroc": 0.8146619315561295
+  },
+  "duration_only_auroc": 0.8148694769855181,
+  "volume_only_auroc": 0.5450834793838206,
+  "hazard_shape_direction": "decreasing with duration (risk of permanent drop-out)",
+  "interpretation": "This is a more standard survival/hazard formulation of the same MNAR mechanism found in novelty #1 (static logistic on volume). It adds whether TIME SPENT ABSENT itself changes reappearance risk, beyond what the last known volume already predicts -- a question the static model could not answer."
+}

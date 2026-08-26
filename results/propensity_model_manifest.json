@@ -1,0 +1,26 @@
+{
+  "run_id": "propensity_1787724035",
+  "propensity_model_file_used": "reporting_propensity_model_trainonly.json",
+  "seeds": [
+    20260826,
+    1,
+    2,
+    3,
+    4
+  ],
+  "fit_count": 330,
+  "skip_count": 30,
+  "fail_count": 0,
+  "prediction_rows": 391860,
+  "propensity_model": {
+    "const": -17.886733084144495,
+    "coef_log1p_last_provincial_total": 2.9756596492309346,
+    "transition_week": "2023w32",
+    "test_start_t": 144,
+    "n_train_obs": 1190,
+    "auroc_in_sample_train_only": 0.8054466680420881,
+    "fit_scope": "weeks t < 144 only (strictly before the locked final 20 test origins).",
+    "note": "Safe to use as a causal forecasting feature: never saw presence/volume data from the locked test block."
+  },
+  "wall_time_seconds": 452.3
+}

@@ -1,0 +1,12 @@
+flag_type,year,epi_week,detail
+duplicate_source_table,2025,9,"identical to 2025 w8: Table 4 in the w9 bulletin is byte-identical to w8's; likely a source-side republish error, not an extraction error. Confirmed by direct re-fetch of both PDFs on 2026-08-06."
+dropped_non_data_row,2024,36,Note: Kohat is not present as a row in this week's Table 4.
+dropped_non_data_row,2024,37,Note: Kohat is not present as a row in this week's Table 4.
+dropped_non_data_row,2024,40,Note: Battagram and Kohat are not present as rows in this week's Table 4.
+dropped_non_data_row,2024,41,Note: Battagram is not present as a row in this week's Table 4.
+dropped_cell_corrected,2023,16,Malakand: the source row carries one fewer value than there are column headings. The blank cell falls under 'Typhoid'; values after it were transcribed one column to the left and have been realigned. Corrected row reconciles exactly against the printed provincial Total on every column.
+dropped_cell_corrected,2023,22,Malakand: the source row carries one fewer value than there are column headings. The blank cell falls under 'Dog Bite'; values after it were transcribed one column to the left and have been realigned. Corrected row reconciles exactly against the printed provincial Total on every column.
+dropped_cell_corrected,2023,26,Malakand: the source row carries one fewer value than there are column headings. The blank cell falls under 'Dog Bite'; values after it were transcribed one column to the left and have been realigned. Corrected row reconciles exactly against the printed provincial Total on every column.
+dropped_cell_corrected,2026,26,Mansehra: the source row carries one fewer value than there are column headings. The blank cell falls under 'Animal / Dog Bite'; values after it were transcribed one column to the left and have been realigned. Corrected row reconciles exactly against the printed provincial Total on every column.
+overlapping_reporting_units,2024,49,'SWA' reports at undivided-district level (all-condition total 340) while a small 'South Waziristan (Lower)' row (total 42) also appears. The two rows overlap geographically in this week. SWA is coded as South Waziristan (undivided); treat this week as ambiguous for any South Waziristan analysis.
+reporting_unit_redefinition,2024,50,"'SWA' changes meaning at this week: undivided South Waziristan before, South Waziristan Upper from here on (continues as 'SWU' from 2025 w1). See district_crosswalk.csv applies_from/applies_to."

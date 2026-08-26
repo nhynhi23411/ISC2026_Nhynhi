@@ -1,0 +1,49 @@
+{
+  "run_id": "local_models_1787721791",
+  "fit_count": 396,
+  "skip_count": 180,
+  "fail_count": 0,
+  "prediction_rows": 235116,
+  "models": [
+    "ridge_mask",
+    "poisson_mask",
+    "negbin_mask",
+    "random_forest_mask",
+    "lightgbm_mask",
+    "lightgbm_nomask"
+  ],
+  "conditions": [
+    "AD_noncholera",
+    "Malaria",
+    "ILI",
+    "SARI",
+    "ALRI_u5",
+    "Bloody_diarrhoea",
+    "Typhoid",
+    "Dog_bite",
+    "AWD_cholera",
+    "AVH",
+    "Cut_leishmaniasis",
+    "VH_BCD",
+    "Chickenpox",
+    "Measles",
+    "TB",
+    "Dengue"
+  ],
+  "complete_conditions": [
+    "AD_noncholera",
+    "Malaria",
+    "ILI",
+    "ALRI_u5",
+    "Bloody_diarrhoea",
+    "Typhoid"
+  ],
+  "horizons": [
+    1,
+    2,
+    4
+  ],
+  "final_test_origins": 20,
+  "wall_time_seconds": 480.1,
+  "research_data_used": true
+}

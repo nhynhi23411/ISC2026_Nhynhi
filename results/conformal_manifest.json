@@ -1,0 +1,69 @@
+{
+  "run_id": "conformal_1787725258",
+  "calib_size_origins": 20,
+  "n_skipped_condition_horizon_mode": 30,
+  "skipped_examples": [
+    [
+      "AWD_cholera",
+      1,
+      "zero_fill",
+      "too_few_calib"
+    ],
+    [
+      "AWD_cholera",
+      1,
+      "reporting_aware",
+      "too_few_train"
+    ],
+    [
+      "AWD_cholera",
+      2,
+      "zero_fill",
+      "too_few_calib"
+    ],
+    [
+      "AWD_cholera",
+      2,
+      "reporting_aware",
+      "too_few_train"
+    ],
+    [
+      "AWD_cholera",
+      4,
+      "zero_fill",
+      "too_few_calib"
+    ],
+    [
+      "AWD_cholera",
+      4,
+      "reporting_aware",
+      "too_few_train"
+    ],
+    [
+      "AVH",
+      1,
+      "zero_fill",
+      "too_few_calib"
+    ],
+    [
+      "AVH",
+      1,
+      "reporting_aware",
+      "too_few_calib"
+    ],
+    [
+      "AVH",
+      2,
+      "zero_fill",
+      "too_few_calib"
+    ],
+    [
+      "AVH",
+      2,
+      "reporting_aware",
+      "too_few_calib"
+    ]
+  ],
+  "prediction_rows": 39186,
+  "wall_time_seconds": 60.5
+}

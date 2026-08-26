@@ -1,0 +1,15 @@
+{
+  "load_source_seconds": 0.09102920000441372,
+  "build_panel_seconds": 6.494795600010548,
+  "panel_rows": 115456,
+  "build_series_seconds": 1.2950150000397116,
+  "peak_memory_mb_data_layer": 42.4,
+  "one_time_fit_all_conditions_seconds": 2.499,
+  "n_conditions_fitted": 14,
+  "one_week_refresh_seconds_all_series": 0.8219,
+  "n_forecasts_per_refresh": 616,
+  "seconds_per_forecast": 0.001334,
+  "peak_memory_mb_full_pipeline": 42.4,
+  "hardware_note": "single CPU thread, no GPU, commodity laptop-class hardware; all numbers wall-clock",
+  "operational_interpretation": "Refreshing forecasts for all 616 active district-condition series after a new weekly bulletin takes about 0.82s once models are fitted; the one-time cost of fitting one LightGBM per condition is 2.5s. Both are negligible relative to the weekly reporting cadence, so the pipeline is operationally deployable on commodity hardware without GPUs or distributed compute -- relevant to real-world smart-surveillance deployment, not just an offline benchmark."
+}

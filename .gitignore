@@ -1,0 +1,8 @@
+__pycache__/
+*.py[cod]
+.venv/
+env/
+*.log
+results/*predictions*.csv
+results/*forecast*.csv
+render_review/

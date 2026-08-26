@@ -1,0 +1,7 @@
+{
+  "run_id": "local_quantile_1787720672",
+  "prediction_rows": 39186,
+  "wall_time_seconds": 245.8,
+  "method": "LightGBM pinball-loss quantile regression, alpha in {0.05,0.10,0.50,0.90,0.95}",
+  "note": "Compare against project_a_extended_modal_results/uncertainty_metrics.csv (empirical residual method)."
+}

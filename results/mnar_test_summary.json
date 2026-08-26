@@ -1,0 +1,14 @@
+{
+  "n_obs": 1390,
+  "n_rotating_conditions": 10,
+  "transition_week": "2023w32",
+  "logit_coef_log1p_last_provincial_total": 2.3101331947720176,
+  "logit_coef_pvalue": 6.115377922491678e-20,
+  "logit_coef_95ci": [
+    1.8148757964778,
+    2.8053905930662353
+  ],
+  "auroc_with_condition_fixed_effects": 0.9245309050772627,
+  "auroc_volume_only_no_fixed_effects": 0.8054267141870144,
+  "interpretation": "Positive, significant coefficient means a rotating condition's own recent provincial case volume predicts whether it is ranked (present) this week -- direct evidence of rank-based right-censoring (MNAR-like), not MCAR."
+}

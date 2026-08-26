@@ -1,0 +1,1707 @@
+{
+  "audit": {
+    "run_id": "full_1787715198",
+    "n_long_rows": 59824,
+    "n_weeks": 164,
+    "n_districts": 44,
+    "n_conditions": 16,
+    "panel_rows": 115456,
+    "structurally_unreported_cells": 43384,
+    "district_or_cell_unreported_cells": 12248,
+    "reported_but_NR_cells": 291,
+    "complete_conditions": [
+      "AD_noncholera",
+      "Malaria",
+      "ILI",
+      "ALRI_u5",
+      "Bloody_diarrhoea",
+      "Typhoid"
+    ],
+    "horizons": [
+      1,
+      2,
+      4
+    ],
+    "final_test_origins": 20
+  },
+  "baseline_h1_mean4": {
+    "zero_MAE": 46.036892052194545,
+    "aware_MAE": 46.036951364175565
+  },
+  "baseline_pooled_by_horizon": [
+    {
+      "horizon": 1,
+      "mode": "reporting_aware",
+      "method": "last",
+      "abs_error": 48.014709371293
+    },
+    {
+      "horizon": 1,
+      "mode": "reporting_aware",
+      "method": "mean4",
+      "abs_error": 46.036951364175565
+    },
+    {
+      "horizon": 1,
+      "mode": "reporting_aware",
+      "method": "seasonal",
+      "abs_error": 76.26453143534994
+    },
+    {
+      "horizon": 1,
+      "mode": "zero_fill",
+      "method": "last",
+      "abs_error": 48.014709371293
+    },
+    {
+      "horizon": 1,
+      "mode": "zero_fill",
+      "method": "mean4",
+      "abs_error": 46.036892052194545
+    },
+    {
+      "horizon": 1,
+      "mode": "zero_fill",
+      "method": "seasonal",
+      "abs_error": 76.57461447212337
+    },
+    {
+      "horizon": 2,
+      "mode": "reporting_aware",
+      "method": "last",
+      "abs_error": 49.00576008014025
+    },
+    {
+      "horizon": 2,
+      "mode": "reporting_aware",
+      "method": "mean4",
+      "abs_error": 46.473390934134734
+    },
+    {
+      "horizon": 2,
+      "mode": "reporting_aware",
+      "method": "seasonal",
+      "abs_error": 76.6824442774856
+    },
+    {
+      "horizon": 2,
+      "mode": "zero_fill",
+      "method": "last",
+      "abs_error": 49.00576008014025
+    },
+    {
+      "horizon": 2,
+      "mode": "zero_fill",
+      "method": "mean4",
+      "abs_error": 46.473328324567994
+    },
+    {
+      "horizon": 2,
+      "mode": "zero_fill",
+      "method": "seasonal",
+      "abs_error": 77.00976709241172
+    },
+    {
+      "horizon": 4,
+      "mode": "reporting_aware",
+      "method": "last",
+      "abs_error": 51.6669481981982
+    },
+    {
+      "horizon": 4,
+      "mode": "reporting_aware",
+      "method": "mean4",
+      "abs_error": 48.503237612612615
+    },
+    {
+      "horizon": 4,
+      "mode": "reporting_aware",
+      "method": "seasonal",
+      "abs_error": 78.25112612612612
+    },
+    {
+      "horizon": 4,
+      "mode": "zero_fill",
+      "method": "last",
+      "abs_error": 51.6669481981982
+    },
+    {
+      "horizon": 4,
+      "mode": "zero_fill",
+      "method": "mean4",
+      "abs_error": 48.503237612612615
+    },
+    {
+      "horizon": 4,
+      "mode": "zero_fill",
+      "method": "seasonal",
+      "abs_error": 78.36824324324324
+    }
+  ],
+  "rotating_stress_h1": [
+    {
+      "split": "test",
+      "condition_group": "rotating_stress",
+      "horizon": 1,
+      "method": "last",
+      "n": 2807,
+      "mean_delta": 0.1667260420377627,
+      "ci_low": 0.0573477021731385,
+      "ci_high": 0.2985393658710367,
+      "zero_mae": 6.912718204488778,
+      "aware_mae": 6.745992162451016
+    },
+    {
+      "split": "test",
+      "condition_group": "rotating_stress",
+      "horizon": 1,
+      "method": "mean4",
+      "n": 2807,
+      "mean_delta": 0.0578909868186676,
+      "ci_low": -0.0093560741004631,
+      "ci_high": 0.1349327573922337,
+      "zero_mae": 6.402832205201283,
+      "aware_mae": 6.344941218382615
+    },
+    {
+      "split": "test",
+      "condition_group": "rotating_stress",
+      "horizon": 1,
+      "method": "seasonal",
+      "n": 2807,
+      "mean_delta": 0.6341289633060206,
+      "ci_low": 0.4214374777342358,
+      "ci_high": 0.8753562522265762,
+      "zero_mae": 15.725329533309583,
+      "aware_mae": 15.091200570003563
+    }
+  ],
+  "local_model_summary": [
+    {
+      "model": "lightgbm_mask",
+      "mode": "reporting_aware",
+      "horizon": 1,
+      "MAE": 44.45058483083008,
+      "n": 4215.0
+    },
+    {
+      "model": "lightgbm_mask",
+      "mode": "reporting_aware",
+      "horizon": 2,
+      "MAE": 44.96396871495122,
+      "n": 3993.0
+    },
+    {
+      "model": "lightgbm_mask",
+      "mode": "reporting_aware",
+      "horizon": 4,
+      "MAE": 47.15664150952206,
+      "n": 3552.0
+    },
+    {
+      "model": "lightgbm_mask",
+      "mode": "zero_fill",
+      "horizon": 1,
+      "MAE": 43.3451974315833,
+      "n": 4215.0
+    },
+    {
+      "model": "lightgbm_mask",
+      "mode": "zero_fill",
+      "horizon": 2,
+      "MAE": 44.2732247830841,
+      "n": 3993.0
+    },
+    {
+      "model": "lightgbm_mask",
+      "mode": "zero_fill",
+      "horizon": 4,
+      "MAE": 46.29621351494095,
+      "n": 3552.0
+    },
+    {
+      "model": "lightgbm_nomask",
+      "mode": "reporting_aware",
+      "horizon": 1,
+      "MAE": 44.43903182922944,
+      "n": 4215.0
+    },
+    {
+      "model": "lightgbm_nomask",
+      "mode": "reporting_aware",
+      "horizon": 2,
+      "MAE": 44.98890599247337,
+      "n": 3993.0
+    },
+    {
+      "model": "lightgbm_nomask",
+      "mode": "reporting_aware",
+      "horizon": 4,
+      "MAE": 47.00003719880972,
+      "n": 3552.0
+    },
+    {
+      "model": "lightgbm_nomask",
+      "mode": "zero_fill",
+      "horizon": 1,
+      "MAE": 43.65687933749309,
+      "n": 4215.0
+    },
+    {
+      "model": "lightgbm_nomask",
+      "mode": "zero_fill",
+      "horizon": 2,
+      "MAE": 44.36256733881071,
+      "n": 3993.0
+    },
+    {
+      "model": "lightgbm_nomask",
+      "mode": "zero_fill",
+      "horizon": 4,
+      "MAE": 46.17993592226785,
+      "n": 3552.0
+    },
+    {
+      "model": "negbin_mask",
+      "mode": "reporting_aware",
+      "horizon": 1,
+      "MAE": 110.43896085423397,
+      "n": 4215.0
+    },
+    {
+      "model": "negbin_mask",
+      "mode": "reporting_aware",
+      "horizon": 2,
+      "MAE": 111.87226489666493,
+      "n": 3993.0
+    },
+    {
+      "model": "negbin_mask",
+      "mode": "reporting_aware",
+      "horizon": 4,
+      "MAE": 116.30751120332205,
+      "n": 3552.0
+    },
+    {
+      "model": "negbin_mask",
+      "mode": "zero_fill",
+      "horizon": 1,
+      "MAE": 193.64162800105586,
+      "n": 4215.0
+    },
+    {
+      "model": "negbin_mask",
+      "mode": "zero_fill",
+      "horizon": 2,
+      "MAE": 200.31460458580344,
+      "n": 3993.0
+    },
+    {
+      "model": "negbin_mask",
+      "mode": "zero_fill",
+      "horizon": 4,
+      "MAE": 116.27417650738894,
+      "n": 3552.0
+    },
+    {
+      "model": "poisson_mask",
+      "mode": "reporting_aware",
+      "horizon": 1,
+      "MAE": 110.43896085423397,
+      "n": 4215.0
+    },
+    {
+      "model": "poisson_mask",
+      "mode": "reporting_aware",
+      "horizon": 2,
+      "MAE": 111.87226489666493,
+      "n": 3993.0
+    },
+    {
+      "model": "poisson_mask",
+      "mode": "reporting_aware",
+      "horizon": 4,
+      "MAE": 116.30751120332205,
+      "n": 3552.0
+    },
+    {
+      "model": "poisson_mask",
+      "mode": "zero_fill",
+      "horizon": 1,
+      "MAE": 110.41805615238252,
+      "n": 4215.0
+    },
+    {
+      "model": "poisson_mask",
+      "mode": "zero_fill",
+      "horizon": 2,
+      "MAE": 111.85556937262265,
+      "n": 3993.0
+    },
+    {
+      "model": "poisson_mask",
+      "mode": "zero_fill",
+      "horizon": 4,
+      "MAE": 116.27417650738894,
+      "n": 3552.0
+    },
+    {
+      "model": "random_forest_mask",
+      "mode": "reporting_aware",
+      "horizon": 1,
+      "MAE": 44.98777651728893,
+      "n": 4215.0
+    },
+    {
+      "model": "random_forest_mask",
+      "mode": "reporting_aware",
+      "horizon": 2,
+      "MAE": 45.957719432056194,
+      "n": 3993.0
+    },
+    {
+      "model": "random_forest_mask",
+      "mode": "reporting_aware",
+      "horizon": 4,
+      "MAE": 47.9576252739031,
+      "n": 3552.0
+    },
+    {
+      "model": "random_forest_mask",
+      "mode": "zero_fill",
+      "horizon": 1,
+      "MAE": 44.92634744493468,
+      "n": 4215.0
+    },
+    {
+      "model": "random_forest_mask",
+      "mode": "zero_fill",
+      "horizon": 2,
+      "MAE": 45.92862341213554,
+      "n": 3993.0
+    },
+    {
+      "model": "random_forest_mask",
+      "mode": "zero_fill",
+      "horizon": 4,
+      "MAE": 48.30821568116136,
+      "n": 3552.0
+    },
+    {
+      "model": "ridge_mask",
+      "mode": "reporting_aware",
+      "horizon": 1,
+      "MAE": 176.28311705149835,
+      "n": 4215.0
+    },
+    {
+      "model": "ridge_mask",
+      "mode": "reporting_aware",
+      "horizon": 2,
+      "MAE": 176.0805195493211,
+      "n": 3993.0
+    },
+    {
+      "model": "ridge_mask",
+      "mode": "reporting_aware",
+      "horizon": 4,
+      "MAE": 176.22822120068574,
+      "n": 3552.0
+    },
+    {
+      "model": "ridge_mask",
+      "mode": "zero_fill",
+      "horizon": 1,
+      "MAE": 152.15652423703222,
+      "n": 4215.0
+    },
+    {
+      "model": "ridge_mask",
+      "mode": "zero_fill",
+      "horizon": 2,
+      "MAE": 152.2775189274841,
+      "n": 3993.0
+    },
+    {
+      "model": "ridge_mask",
+      "mode": "zero_fill",
+      "horizon": 4,
+      "MAE": 153.07617731479593,
+      "n": 3552.0
+    }
+  ],
+  "local_model_best_rows": [
+    {
+      "condition": "Typhoid",
+      "horizon": 1,
+      "mode": "reporting_aware",
+      "model": "lightgbm_mask",
+      "n": 703,
+      "MAE": 5.653349431035888,
+      "RMSE": 10.792015652889017
+    },
+    {
+      "condition": "Typhoid",
+      "horizon": 1,
+      "mode": "zero_fill",
+      "model": "lightgbm_nomask",
+      "n": 703,
+      "MAE": 5.668465523955037,
+      "RMSE": 10.893407643899446
+    },
+    {
+      "condition": "Typhoid",
+      "horizon": 4,
+      "mode": "zero_fill",
+      "model": "negbin_mask",
+      "n": 592,
+      "MAE": 10.073731161139769,
+      "RMSE": 13.421421065558787
+    },
+    {
+      "condition": "Typhoid",
+      "horizon": 4,
+      "mode": "zero_fill",
+      "model": "poisson_mask",
+      "n": 592,
+      "MAE": 10.073731161139769,
+      "RMSE": 13.421421065558787
+    },
+    {
+      "condition": "Typhoid",
+      "horizon": 1,
+      "mode": "reporting_aware",
+      "model": "random_forest_mask",
+      "n": 703,
+      "MAE": 5.507451424242999,
+      "RMSE": 10.49574292340921
+    },
+    {
+      "condition": "Typhoid",
+      "horizon": 4,
+      "mode": "zero_fill",
+      "model": "ridge_mask",
+      "n": 592,
+      "MAE": 15.190133815537529,
+      "RMSE": 17.64930319203758
+    }
+  ],
+  "local_model_bootstrap": [
+    {
+      "condition_group": "complete_six",
+      "horizon": 1,
+      "model": "lightgbm_mask",
+      "n": 4215,
+      "mean_delta": -1.1053873992467833,
+      "ci_low": -1.620763989776557,
+      "ci_high": -0.5457603426940663,
+      "zero_MAE": 43.34519743158331,
+      "aware_MAE": 44.45058483083008
+    },
+    {
+      "condition_group": "complete_six",
+      "horizon": 2,
+      "model": "lightgbm_mask",
+      "n": 3993,
+      "mean_delta": -0.6907439318671057,
+      "ci_low": -1.284203287137481,
+      "ci_high": -0.1212661142891611,
+      "zero_MAE": 44.27322478308412,
+      "aware_MAE": 44.96396871495122
+    },
+    {
+      "condition_group": "complete_six",
+      "horizon": 4,
+      "model": "lightgbm_mask",
+      "n": 3552,
+      "mean_delta": -0.8604279945811263,
+      "ci_low": -1.5773407197070868,
+      "ci_high": -0.1726416158962945,
+      "zero_MAE": 46.29621351494094,
+      "aware_MAE": 47.15664150952207
+    },
+    {
+      "condition_group": "complete_six",
+      "horizon": 1,
+      "model": "lightgbm_nomask",
+      "n": 4215,
+      "mean_delta": -0.7821524917363575,
+      "ci_low": -1.317768844522243,
+      "ci_high": -0.2369047396536928,
+      "zero_MAE": 43.65687933749309,
+      "aware_MAE": 44.43903182922946
+    },
+    {
+      "condition_group": "complete_six",
+      "horizon": 2,
+      "model": "lightgbm_nomask",
+      "n": 3993,
+      "mean_delta": -0.6263386536626616,
+      "ci_low": -1.2349799510369042,
+      "ci_high": -0.0680978966012409,
+      "zero_MAE": 44.36256733881071,
+      "aware_MAE": 44.98890599247337
+    },
+    {
+      "condition_group": "complete_six",
+      "horizon": 4,
+      "model": "lightgbm_nomask",
+      "n": 3552,
+      "mean_delta": -0.8201012765418725,
+      "ci_low": -1.4526816576740145,
+      "ci_high": -0.1998812519109768,
+      "zero_MAE": 46.17993592226786,
+      "aware_MAE": 47.00003719880972
+    },
+    {
+      "condition_group": "complete_six",
+      "horizon": 1,
+      "model": "negbin_mask",
+      "n": 4215,
+      "mean_delta": 83.20266714682188,
+      "ci_low": 56.056709986549286,
+      "ci_high": 118.56099197219164,
+      "zero_MAE": 193.6416280010559,
+      "aware_MAE": 110.43896085423395
+    },
+    {
+      "condition_group": "complete_six",
+      "horizon": 2,
+      "model": "negbin_mask",
+      "n": 3993,
+      "mean_delta": 88.44233968913856,
+      "ci_low": 58.67397776673237,
+      "ci_high": 126.99804061965506,
+      "zero_MAE": 200.3146045858035,
+      "aware_MAE": 111.87226489666492
+    },
+    {
+      "condition_group": "complete_six",
+      "horizon": 4,
+      "model": "negbin_mask",
+      "n": 3552,
+      "mean_delta": -0.0333346959330969,
+      "ci_low": -0.1199624187114016,
+      "ci_high": 0.0413928405323508,
+      "zero_MAE": 116.27417650738894,
+      "aware_MAE": 116.30751120332204
+    },
+    {
+      "condition_group": "complete_six",
+      "horizon": 1,
+      "model": "poisson_mask",
+      "n": 4215,
+      "mean_delta": -0.0209047018514242,
+      "ci_low": -0.0627425153183821,
+      "ci_high": 0.0195178953464953,
+      "zero_MAE": 110.41805615238256,
+      "aware_MAE": 110.43896085423395
+    },
+    {
+      "condition_group": "complete_six",
+      "horizon": 2,
+      "model": "poisson_mask",
+      "n": 3993,
+      "mean_delta": -0.0166955240422811,
+      "ci_low": -0.063135742789817,
+      "ci_high": 0.0265720165214789,
+      "zero_MAE": 111.85556937262264,
+      "aware_MAE": 111.87226489666492
+    },
+    {
+      "condition_group": "complete_six",
+      "horizon": 4,
+      "model": "poisson_mask",
+      "n": 3552,
+      "mean_delta": -0.0333346959330969,
+      "ci_low": -0.1199624187114016,
+      "ci_high": 0.0413928405323508,
+      "zero_MAE": 116.27417650738894,
+      "aware_MAE": 116.30751120332204
+    },
+    {
+      "condition_group": "complete_six",
+      "horizon": 1,
+      "model": "random_forest_mask",
+      "n": 4215,
+      "mean_delta": -0.0614290723542525,
+      "ci_low": -0.3399285486544795,
+      "ci_high": 0.2266575374793322,
+      "zero_MAE": 44.92634744493468,
+      "aware_MAE": 44.98777651728893
+    },
+    {
+      "condition_group": "complete_six",
+      "horizon": 2,
+      "model": "random_forest_mask",
+      "n": 3993,
+      "mean_delta": -0.0290960199206502,
+      "ci_low": -0.3541252714410586,
+      "ci_high": 0.2736723302587651,
+      "zero_MAE": 45.92862341213555,
+      "aware_MAE": 45.9577194320562
+    },
+    {
+      "condition_group": "complete_six",
+      "horizon": 4,
+      "model": "random_forest_mask",
+      "n": 3552,
+      "mean_delta": 0.3505904072582621,
+      "ci_low": 0.0067875281006943,
+      "ci_high": 0.6626576721465139,
+      "zero_MAE": 48.30821568116136,
+      "aware_MAE": 47.95762527390309
+    },
+    {
+      "condition_group": "complete_six",
+      "horizon": 1,
+      "model": "ridge_mask",
+      "n": 4215,
+      "mean_delta": -24.12659281446613,
+      "ci_low": -25.16130208795171,
+      "ci_high": -23.16793457444237,
+      "zero_MAE": 152.15652423703222,
+      "aware_MAE": 176.28311705149838
+    },
+    {
+      "condition_group": "complete_six",
+      "horizon": 2,
+      "model": "ridge_mask",
+      "n": 3993,
+      "mean_delta": -23.80300062183698,
+      "ci_low": -24.834836455261005,
+      "ci_high": -22.840400127083576,
+      "zero_MAE": 152.2775189274841,
+      "aware_MAE": 176.0805195493211
+    },
+    {
+      "condition_group": "complete_six",
+      "horizon": 4,
+      "model": "ridge_mask",
+      "n": 3552,
+      "mean_delta": -23.152043885889743,
+      "ci_low": -24.214888338434,
+      "ci_high": -22.15547065542484,
+      "zero_MAE": 153.07617731479593,
+      "aware_MAE": 176.22822120068565
+    },
+    {
+      "condition_group": "rotating_stress",
+      "horizon": 1,
+      "model": "lightgbm_mask",
+      "n": 2807,
+      "mean_delta": 0.2159921359059698,
+      "ci_low": 0.0138959394252357,
+      "ci_high": 0.4105431993076033,
+      "zero_MAE": 7.403721644770213,
+      "aware_MAE": 7.187729508864243
+    },
+    {
+      "condition_group": "rotating_stress",
+      "horizon": 2,
+      "model": "lightgbm_mask",
+      "n": 2659,
+      "mean_delta": 0.2943557554447751,
+      "ci_low": 0.0900502987328691,
+      "ci_high": 0.5169520848650466,
+      "zero_MAE": 7.505504222651288,
+      "aware_MAE": 7.211148467206513
+    },
+    {
+      "condition_group": "rotating_stress",
+      "horizon": 4,
+      "model": "lightgbm_mask",
+      "n": 2367,
+      "mean_delta": 0.2014818934083929,
+      "ci_low": -0.0139502863122534,
+      "ci_high": 0.4100304483168461,
+      "zero_MAE": 7.41234323410989,
+      "aware_MAE": 7.210861340701497
+    },
+    {
+      "condition_group": "rotating_stress",
+      "horizon": 1,
+      "model": "lightgbm_nomask",
+      "n": 2807,
+      "mean_delta": 0.2539628123316777,
+      "ci_low": 0.0480376351457574,
+      "ci_high": 0.4634836981465047,
+      "zero_MAE": 7.503930326738751,
+      "aware_MAE": 7.249967514407073
+    },
+    {
+      "condition_group": "rotating_stress",
+      "horizon": 2,
+      "model": "lightgbm_nomask",
+      "n": 2659,
+      "mean_delta": 0.2983309576952106,
+      "ci_low": 0.0831147292260938,
+      "ci_high": 0.5291592209613271,
+      "zero_MAE": 7.578394003144998,
+      "aware_MAE": 7.280063045449789
+    },
+    {
+      "condition_group": "rotating_stress",
+      "horizon": 4,
+      "model": "lightgbm_nomask",
+      "n": 2367,
+      "mean_delta": 0.2010064034437437,
+      "ci_low": -0.0137279666404093,
+      "ci_high": 0.4143123211981476,
+      "zero_MAE": 7.475220620000121,
+      "aware_MAE": 7.274214216556376
+    },
+    {
+      "condition_group": "rotating_stress",
+      "horizon": 1,
+      "model": "negbin_mask",
+      "n": 2807,
+      "mean_delta": 4.083066151648807,
+      "ci_low": 2.343221587603997,
+      "ci_high": 6.10584253129082,
+      "zero_MAE": 19.10770784935151,
+      "aware_MAE": 15.024641697702704
+    },
+    {
+      "condition_group": "rotating_stress",
+      "horizon": 2,
+      "model": "negbin_mask",
+      "n": 2659,
+      "mean_delta": 4.038610056883441,
+      "ci_low": 2.305817393112544,
+      "ci_high": 5.970904902973808,
+      "zero_MAE": 18.966563083643837,
+      "aware_MAE": 14.927953026760392
+    },
+    {
+      "condition_group": "rotating_stress",
+      "horizon": 4,
+      "model": "negbin_mask",
+      "n": 2367,
+      "mean_delta": 3.8871780285699615,
+      "ci_low": 2.0955510272867763,
+      "ci_high": 5.9932695016207855,
+      "zero_MAE": 18.47999823151871,
+      "aware_MAE": 14.592820202948754
+    },
+    {
+      "condition_group": "rotating_stress",
+      "horizon": 1,
+      "model": "poisson_mask",
+      "n": 2807,
+      "mean_delta": 0.2969401665884505,
+      "ci_low": 0.0516287455055733,
+      "ci_high": 0.5667779173715628,
+      "zero_MAE": 15.321581864291153,
+      "aware_MAE": 15.024641697702704
+    },
+    {
+      "condition_group": "rotating_stress",
+      "horizon": 2,
+      "model": "poisson_mask",
+      "n": 2659,
+      "mean_delta": 0.2617769499711616,
+      "ci_low": 0.0132834307877092,
+      "ci_high": 0.5198367889179604,
+      "zero_MAE": 15.189729976731554,
+      "aware_MAE": 14.927953026760392
+    },
+    {
+      "condition_group": "rotating_stress",
+      "horizon": 4,
+      "model": "poisson_mask",
+      "n": 2367,
+      "mean_delta": 0.2004360776528452,
+      "ci_low": -0.061795016632295,
+      "ci_high": 0.4635016758888865,
+      "zero_MAE": 14.793256280601591,
+      "aware_MAE": 14.592820202948754
+    },
+    {
+      "condition_group": "rotating_stress",
+      "horizon": 1,
+      "model": "random_forest_mask",
+      "n": 2807,
+      "mean_delta": 0.333812631099167,
+      "ci_low": 0.1706933294386025,
+      "ci_high": 0.5037984301474445,
+      "zero_MAE": 7.189869158463467,
+      "aware_MAE": 6.8560565273643
+    },
+    {
+      "condition_group": "rotating_stress",
+      "horizon": 2,
+      "model": "random_forest_mask",
+      "n": 2659,
+      "mean_delta": 0.4267290185349579,
+      "ci_low": 0.2405381851964908,
+      "ci_high": 0.6140307260177607,
+      "zero_MAE": 7.298849182207703,
+      "aware_MAE": 6.872120163672745
+    },
+    {
+      "condition_group": "rotating_stress",
+      "horizon": 4,
+      "model": "random_forest_mask",
+      "n": 2367,
+      "mean_delta": 0.4962400987994539,
+      "ci_low": 0.2982577935908487,
+      "ci_high": 0.6984280294066756,
+      "zero_MAE": 7.444432347687759,
+      "aware_MAE": 6.948192248888304
+    },
+    {
+      "condition_group": "rotating_stress",
+      "horizon": 1,
+      "model": "ridge_mask",
+      "n": 2807,
+      "mean_delta": -4.138929806401617,
+      "ci_low": -4.287525822238026,
+      "ci_high": -3.987376041506028,
+      "zero_MAE": 14.183701834740276,
+      "aware_MAE": 18.322631641141893
+    },
+    {
+      "condition_group": "rotating_stress",
+      "horizon": 2,
+      "model": "ridge_mask",
+      "n": 2659,
+      "mean_delta": -4.12979714069344,
+      "ci_low": -4.2764960956506215,
+      "ci_high": -3.977666982723773,
+      "zero_MAE": 14.29959124749197,
+      "aware_MAE": 18.42938838818541
+    },
+    {
+      "condition_group": "rotating_stress",
+      "horizon": 4,
+      "model": "ridge_mask",
+      "n": 2367,
+      "mean_delta": -4.002424499197096,
+      "ci_low": -4.155537061865716,
+      "ci_high": -3.837351004814183,
+      "zero_MAE": 14.487599457239838,
+      "aware_MAE": 18.490023956436936
+    }
+  ],
+  "mask_ablation_pooled": [
+    {
+      "mode": "reporting_aware",
+      "horizon": 1,
+      "mask_MAE": 44.45058483083008,
+      "nomask_MAE": 44.43903182922944,
+      "n": 4215.0
+    },
+    {
+      "mode": "reporting_aware",
+      "horizon": 2,
+      "mask_MAE": 44.96396871495122,
+      "nomask_MAE": 44.98890599247337,
+      "n": 3993.0
+    },
+    {
+      "mode": "reporting_aware",
+      "horizon": 4,
+      "mask_MAE": 47.15664150952206,
+      "nomask_MAE": 47.00003719880972,
+      "n": 3552.0
+    },
+    {
+      "mode": "zero_fill",
+      "horizon": 1,
+      "mask_MAE": 43.3451974315833,
+      "nomask_MAE": 43.65687933749309,
+      "n": 4215.0
+    },
+    {
+      "mode": "zero_fill",
+      "horizon": 2,
+      "mask_MAE": 44.2732247830841,
+      "nomask_MAE": 44.36256733881071,
+      "n": 3993.0
+    },
+    {
+      "mode": "zero_fill",
+      "horizon": 4,
+      "mask_MAE": 46.29621351494095,
+      "nomask_MAE": 46.17993592226785,
+      "n": 3552.0
+    }
+  ],
+  "quality_flag_sensitivity": [
+    {
+      "mode": "reporting_aware",
+      "model": "last",
+      "n": 11760,
+      "MAE": 49.45433673469388,
+      "dataset": "full_test_block"
+    },
+    {
+      "mode": "reporting_aware",
+      "model": "lightgbm_mask",
+      "n": 11760,
+      "MAE": 45.44223918219145,
+      "dataset": "full_test_block"
+    },
+    {
+      "mode": "reporting_aware",
+      "model": "lightgbm_nomask",
+      "n": 11760,
+      "MAE": 45.39926470393881,
+      "dataset": "full_test_block"
+    },
+    {
+      "mode": "reporting_aware",
+      "model": "mean4",
+      "n": 11760,
+      "MAE": 46.930059523809526,
+      "dataset": "full_test_block"
+    },
+    {
+      "mode": "reporting_aware",
+      "model": "negbin_mask",
+      "n": 11760,
+      "MAE": 112.698167816937,
+      "dataset": "full_test_block"
+    },
+    {
+      "mode": "reporting_aware",
+      "model": "poisson_mask",
+      "n": 11760,
+      "MAE": 112.698167816937,
+      "dataset": "full_test_block"
+    },
+    {
+      "mode": "reporting_aware",
+      "model": "random_forest_mask",
+      "n": 11760,
+      "MAE": 46.21412726917321,
+      "dataset": "full_test_block"
+    },
+    {
+      "mode": "reporting_aware",
+      "model": "ridge_mask",
+      "n": 11760,
+      "MAE": 176.197746142631,
+      "dataset": "full_test_block"
+    },
+    {
+      "mode": "reporting_aware",
+      "model": "seasonal",
+      "n": 11760,
+      "MAE": 77.00646258503401,
+      "dataset": "full_test_block"
+    },
+    {
+      "mode": "zero_fill",
+      "model": "last",
+      "n": 11760,
+      "MAE": 49.45433673469388,
+      "dataset": "full_test_block"
+    },
+    {
+      "mode": "zero_fill",
+      "model": "lightgbm_mask",
+      "n": 11760,
+      "MAE": 44.5516279028953,
+      "dataset": "full_test_block"
+    },
+    {
+      "mode": "zero_fill",
+      "model": "lightgbm_nomask",
+      "n": 11760,
+      "MAE": 44.65855528803571,
+      "dataset": "full_test_block"
+    },
+    {
+      "mode": "zero_fill",
+      "model": "mean4",
+      "n": 11760,
+      "MAE": 46.93001700680272,
+      "dataset": "full_test_block"
+    },
+    {
+      "mode": "zero_fill",
+      "model": "negbin_mask",
+      "n": 11760,
+      "MAE": 172.53924771171847,
+      "dataset": "full_test_block"
+    },
+    {
+      "mode": "zero_fill",
+      "model": "poisson_mask",
+      "n": 11760,
+      "MAE": 112.6749379371956,
+      "dataset": "full_test_block"
+    },
+    {
+      "mode": "zero_fill",
+      "model": "random_forest_mask",
+      "n": 11760,
+      "MAE": 46.28812328780119,
+      "dataset": "full_test_block"
+    },
+    {
+      "mode": "zero_fill",
+      "model": "ridge_mask",
+      "n": 11760,
+      "MAE": 152.4753796393444,
+      "dataset": "full_test_block"
+    },
+    {
+      "mode": "zero_fill",
+      "model": "seasonal",
+      "n": 11760,
+      "MAE": 77.2641156462585,
+      "dataset": "full_test_block"
+    },
+    {
+      "mode": "reporting_aware",
+      "model": "last",
+      "n": 11094,
+      "MAE": 49.571119524067065,
+      "dataset": "flagged_weeks_excluded"
+    },
+    {
+      "mode": "reporting_aware",
+      "model": "lightgbm_mask",
+      "n": 11094,
+      "MAE": 44.98520846423375,
+      "dataset": "flagged_weeks_excluded"
+    },
+    {
+      "mode": "reporting_aware",
+      "model": "lightgbm_nomask",
+      "n": 11094,
+      "MAE": 44.94322343573182,
+      "dataset": "flagged_weeks_excluded"
+    },
+    {
+      "mode": "reporting_aware",
+      "model": "mean4",
+      "n": 11094,
+      "MAE": 47.39800793221561,
+      "dataset": "flagged_weeks_excluded"
+    },
+    {
+      "mode": "reporting_aware",
+      "model": "negbin_mask",
+      "n": 11094,
+      "MAE": 112.57857459739049,
+      "dataset": "flagged_weeks_excluded"
+    },
+    {
+      "mode": "reporting_aware",
+      "model": "poisson_mask",
+      "n": 11094,
+      "MAE": 112.57857459739049,
+      "dataset": "flagged_weeks_excluded"
+    },
+    {
+      "mode": "reporting_aware",
+      "model": "random_forest_mask",
+      "n": 11094,
+      "MAE": 45.88091286765538,
+      "dataset": "flagged_weeks_excluded"
+    },
+    {
+      "mode": "reporting_aware",
+      "model": "ridge_mask",
+      "n": 11094,
+      "MAE": 178.59053821020578,
+      "dataset": "flagged_weeks_excluded"
+    },
+    {
+      "mode": "reporting_aware",
+      "model": "seasonal",
+      "n": 11094,
+      "MAE": 77.6396250225347,
+      "dataset": "flagged_weeks_excluded"
+    },
+    {
+      "mode": "zero_fill",
+      "model": "last",
+      "n": 11094,
+      "MAE": 49.571119524067065,
+      "dataset": "flagged_weeks_excluded"
+    },
+    {
+      "mode": "zero_fill",
+      "model": "lightgbm_mask",
+      "n": 11094,
+      "MAE": 44.11670461129314,
+      "dataset": "flagged_weeks_excluded"
+    },
+    {
+      "mode": "zero_fill",
+      "model": "lightgbm_nomask",
+      "n": 11094,
+      "MAE": 44.191830871410176,
+      "dataset": "flagged_weeks_excluded"
+    },
+    {
+      "mode": "zero_fill",
+      "model": "mean4",
+      "n": 11094,
+      "MAE": 47.397962862808726,
+      "dataset": "flagged_weeks_excluded"
+    },
+    {
+      "mode": "zero_fill",
+      "model": "negbin_mask",
+      "n": 11094,
+      "MAE": 171.3289533320458,
+      "dataset": "flagged_weeks_excluded"
+    },
+    {
+      "mode": "zero_fill",
+      "model": "poisson_mask",
+      "n": 11094,
+      "MAE": 112.54814753448404,
+      "dataset": "flagged_weeks_excluded"
+    },
+    {
+      "mode": "zero_fill",
+      "model": "random_forest_mask",
+      "n": 11094,
+      "MAE": 45.92786481959569,
+      "dataset": "flagged_weeks_excluded"
+    },
+    {
+      "mode": "zero_fill",
+      "model": "ridge_mask",
+      "n": 11094,
+      "MAE": 154.69588302266575,
+      "dataset": "flagged_weeks_excluded"
+    },
+    {
+      "mode": "zero_fill",
+      "model": "seasonal",
+      "n": 11094,
+      "MAE": 77.91274562826753,
+      "dataset": "flagged_weeks_excluded"
+    }
+  ],
+  "quality_flag_manifest": {
+    "flagged_weeks": [
+      "2023w16",
+      "2023w22",
+      "2023w26",
+      "2024w36",
+      "2024w37",
+      "2024w40",
+      "2024w41",
+      "2024w49",
+      "2024w50",
+      "2025w9",
+      "2026w26"
+    ],
+    "n_flagged_weeks": 11,
+    "rows_total": 211680,
+    "rows_dropped_as_flagged": 11988,
+    "share_dropped": 0.0566
+  },
+  "quantile_uncertainty_overall": [
+    {
+      "mode": "reporting_aware",
+      "n": 19593,
+      "coverage80": 0.8120757413361915,
+      "width80": 82.32759534728918,
+      "coverage90": 0.90853876384423,
+      "width90": 118.49717946238414
+    },
+    {
+      "mode": "zero_fill",
+      "n": 19593,
+      "coverage80": 0.8178941458684224,
+      "width80": 83.58862817413754,
+      "coverage90": 0.9023630888582655,
+      "width90": 116.8643942806935
+    }
+  ],
+  "quantile_uncertainty_complete_six": [
+    {
+      "mode": "reporting_aware",
+      "coverage80": 0.7911600799758695,
+      "coverage90": 0.9017132967425366
+    },
+    {
+      "mode": "zero_fill",
+      "coverage80": 0.8038611767412936,
+      "coverage90": 0.901701823521999
+    }
+  ],
+  "empirical_residual_uncertainty_lightgbm": [
+    {
+      "mode": "reporting_aware",
+      "coverage80": 0.7182499321532634,
+      "coverage90": 0.8226930320445225
+    },
+    {
+      "mode": "zero_fill",
+      "coverage80": 0.7238205497194339,
+      "coverage90": 0.8329151479402963
+    }
+  ],
+  "missingness_simulation": [
+    {
+      "rate": 0.1,
+      "condition": "AD_noncholera",
+      "n": 2109,
+      "zero_MAE": 200.10004741583688,
+      "aware_MAE": 196.72024656235183,
+      "delta": 3.379800853485051
+    },
+    {
+      "rate": 0.1,
+      "condition": "ALRI_u5",
+      "n": 2106,
+      "zero_MAE": 9.318613485280151,
+      "aware_MAE": 9.271130104463438,
+      "delta": 0.0474833808167129
+    },
+    {
+      "rate": 0.1,
+      "condition": "Bloody_diarrhoea",
+      "n": 2106,
+      "zero_MAE": 12.241215574548908,
+      "aware_MAE": 12.225071225071224,
+      "delta": 0.0161443494776847
+    },
+    {
+      "rate": 0.1,
+      "condition": "ILI",
+      "n": 2106,
+      "zero_MAE": 34.339506172839506,
+      "aware_MAE": 33.711301044634375,
+      "delta": 0.6282051282051313
+    },
+    {
+      "rate": 0.1,
+      "condition": "Malaria",
+      "n": 2109,
+      "zero_MAE": 30.025130393551446,
+      "aware_MAE": 29.62636320531057,
+      "delta": 0.3987671882408747
+    },
+    {
+      "rate": 0.1,
+      "condition": "Typhoid",
+      "n": 2109,
+      "zero_MAE": 6.528212422949265,
+      "aware_MAE": 6.408724513987672,
+      "delta": 0.1194879089615925
+    },
+    {
+      "rate": 0.2,
+      "condition": "AD_noncholera",
+      "n": 2109,
+      "zero_MAE": 199.06590801327644,
+      "aware_MAE": 196.9677572309151,
+      "delta": 2.09815078236133
+    },
+    {
+      "rate": 0.2,
+      "condition": "ALRI_u5",
+      "n": 2106,
+      "zero_MAE": 9.440645773979108,
+      "aware_MAE": 9.373219373219372,
+      "delta": 0.0674264007597358
+    },
+    {
+      "rate": 0.2,
+      "condition": "Bloody_diarrhoea",
+      "n": 2106,
+      "zero_MAE": 12.315764482431147,
+      "aware_MAE": 12.226495726495726,
+      "delta": 0.0892687559354215
+    },
+    {
+      "rate": 0.2,
+      "condition": "ILI",
+      "n": 2106,
+      "zero_MAE": 34.58072174738842,
+      "aware_MAE": 34.05650522317189,
+      "delta": 0.5242165242165271
+    },
+    {
+      "rate": 0.2,
+      "condition": "Malaria",
+      "n": 2109,
+      "zero_MAE": 30.04457088667615,
+      "aware_MAE": 29.60597439544808,
+      "delta": 0.438596491228072
+    },
+    {
+      "rate": 0.2,
+      "condition": "Typhoid",
+      "n": 2109,
+      "zero_MAE": 6.557136083451873,
+      "aware_MAE": 6.421526789947842,
+      "delta": 0.1356092935040305
+    },
+    {
+      "rate": 0.4,
+      "condition": "AD_noncholera",
+      "n": 2109,
+      "zero_MAE": 204.20388809862493,
+      "aware_MAE": 197.0199146514936,
+      "delta": 7.183973447131336
+    },
+    {
+      "rate": 0.4,
+      "condition": "ALRI_u5",
+      "n": 2106,
+      "zero_MAE": 9.574074074074074,
+      "aware_MAE": 9.115859449192785,
+      "delta": 0.4582146248812897
+    },
+    {
+      "rate": 0.4,
+      "condition": "Bloody_diarrhoea",
+      "n": 2106,
+      "zero_MAE": 12.537986704653372,
+      "aware_MAE": 12.257834757834758,
+      "delta": 0.2801519468186146
+    },
+    {
+      "rate": 0.4,
+      "condition": "ILI",
+      "n": 2106,
+      "zero_MAE": 35.5982905982906,
+      "aware_MAE": 33.832858499525166,
+      "delta": 1.7654320987654373
+    },
+    {
+      "rate": 0.4,
+      "condition": "Malaria",
+      "n": 2109,
+      "zero_MAE": 29.960170697012803,
+      "aware_MAE": 29.57705073494548,
+      "delta": 0.383119962067326
+    },
+    {
+      "rate": 0.4,
+      "condition": "Typhoid",
+      "n": 2109,
+      "zero_MAE": 6.625889046941679,
+      "aware_MAE": 6.438122332859175,
+      "delta": 0.1877667140825041
+    }
+  ],
+  "mnar_test_summary": {
+    "n_obs": 1390,
+    "n_rotating_conditions": 10,
+    "transition_week": "2023w32",
+    "logit_coef_log1p_last_provincial_total": 2.3101331947720176,
+    "logit_coef_pvalue": 6.115377922491678e-20,
+    "logit_coef_95ci": [
+      1.8148757964778,
+      2.8053905930662353
+    ],
+    "auroc_with_condition_fixed_effects": 0.9245309050772627,
+    "auroc_volume_only_no_fixed_effects": 0.8054267141870144,
+    "interpretation": "Positive, significant coefficient means a rotating condition's own recent provincial case volume predicts whether it is ranked (present) this week -- direct evidence of rank-based right-censoring (MNAR-like), not MCAR."
+  },
+  "rq4_uncertainty_summary": {
+    "n_predictions": 39186,
+    "n_rotating_only": 15666,
+    "scope": "rotating_stress conditions only; complete_six excluded because n_missing_8=0 for them by construction (confounds run-length with disease scale)",
+    "spearman_missing_run_vs_scaled_abs_error": -0.019841569024921096,
+    "spearman_missing_run_vs_scaled_width80": -0.06334702624550045,
+    "spearman_missing_run_vs_scaled_width90": -0.03875476323396814,
+    "interpretation": "Positive correlations (computed on rotating conditions only, using series-scale-normalized error/width to remove the disease-scale confound) mean forecasts made after a longer run of non-reporting have both larger relative errors and wider relative quantile intervals -- i.e. interval width is a usable signal of which district-week forecasts are less reliable (brief RQ4). A naive, unscaled, all-condition version of this correlation is confounded by scale and gives the opposite sign; see rq4_uncertainty_by_missing_run.csv condition_group='complete_six' vs 'rotating_stress' rows."
+  },
+  "trajectory_distortion_summary": {
+    "Measles": {
+      "weeks_present_of_164": 85,
+      "pct_8wk_trend_direction_disagreement": 0.1472,
+      "pct_censored_weeks_with_over25pct_relative_diff": 0.8101,
+      "n_censored_weeks": 79
+    },
+    "TB": {
+      "weeks_present_of_164": 78,
+      "pct_8wk_trend_direction_disagreement": 0.2025,
+      "pct_censored_weeks_with_over25pct_relative_diff": 0.6628,
+      "n_censored_weeks": 86
+    }
+  },
+  "propensity_model_manifest": {
+    "run_id": "propensity_1787724035",
+    "propensity_model_file_used": "reporting_propensity_model_trainonly.json",
+    "seeds": [
+      20260826,
+      1,
+      2,
+      3,
+      4
+    ],
+    "fit_count": 330,
+    "skip_count": 30,
+    "fail_count": 0,
+    "prediction_rows": 391860,
+    "propensity_model": {
+      "const": -17.886733084144495,
+      "coef_log1p_last_provincial_total": 2.9756596492309346,
+      "transition_week": "2023w32",
+      "test_start_t": 144,
+      "n_train_obs": 1190,
+      "auroc_in_sample_train_only": 0.8054466680420881,
+      "fit_scope": "weeks t < 144 only (strictly before the locked final 20 test origins).",
+      "note": "Safe to use as a causal forecasting feature: never saw presence/volume data from the locked test block."
+    },
+    "wall_time_seconds": 452.3
+  },
+  "propensity_gain_heterogeneity_summary": {
+    "n_districts": 44,
+    "rotating_stress": {
+      "n_districts_with_estimate": 37,
+      "n_districts_with_positive_gain": 29,
+      "share_positive": 0.7838
+    },
+    "complete_six": {
+      "n_districts_with_estimate": 37,
+      "n_districts_with_positive_gain": 27,
+      "share_positive": 0.7297
+    },
+    "spearman_gain_vs_own_district_unreported_rate": 0.10579564415832438,
+    "spearman_gain_vs_zero_count_share": 0.2859174964438122,
+    "interpretation": "share_positive close to 1 means the propensity gain generalizes across nearly all districts rather than being driven by one or two outliers. A positive spearman correlation with own_unreported_rate/zero_count_share would support brief RQ3's hypothesis that benefits concentrate where reporting is patchiest or incidence is most intermittent."
+  },
+  "hazard_model_summary": {
+    "n_person_period_rows": 623,
+    "n_events_reappear": 37,
+    "n_rotating_conditions": 10,
+    "full_model": {
+      "coef_duration": -0.1190280238568036,
+      "coef_duration_sq": 0.0007035952900877731,
+      "coef_log1p_volume": 0.6973063924044157,
+      "pvalue_duration": 2.749237186831595e-06,
+      "pvalue_log1p_volume": 0.2793279302569587,
+      "auroc": 0.8146619315561295
+    },
+    "duration_only_auroc": 0.8148694769855181,
+    "volume_only_auroc": 0.5450834793838206,
+    "hazard_shape_direction": "decreasing with duration (risk of permanent drop-out)",
+    "interpretation": "This is a more standard survival/hazard formulation of the same MNAR mechanism found in novelty #1 (static logistic on volume). It adds whether TIME SPENT ABSENT itself changes reappearance risk, beyond what the last known volume already predicts -- a question the static model could not answer."
+  },
+  "conformal_manifest": {
+    "run_id": "conformal_1787725258",
+    "calib_size_origins": 20,
+    "n_skipped_condition_horizon_mode": 30,
+    "skipped_examples": [
+      [
+        "AWD_cholera",
+        1,
+        "zero_fill",
+        "too_few_calib"
+      ],
+      [
+        "AWD_cholera",
+        1,
+        "reporting_aware",
+        "too_few_train"
+      ],
+      [
+        "AWD_cholera",
+        2,
+        "zero_fill",
+        "too_few_calib"
+      ],
+      [
+        "AWD_cholera",
+        2,
+        "reporting_aware",
+        "too_few_train"
+      ],
+      [
+        "AWD_cholera",
+        4,
+        "zero_fill",
+        "too_few_calib"
+      ],
+      [
+        "AWD_cholera",
+        4,
+        "reporting_aware",
+        "too_few_train"
+      ],
+      [
+        "AVH",
+        1,
+        "zero_fill",
+        "too_few_calib"
+      ],
+      [
+        "AVH",
+        1,
+        "reporting_aware",
+        "too_few_calib"
+      ],
+      [
+        "AVH",
+        2,
+        "zero_fill",
+        "too_few_calib"
+      ],
+      [
+        "AVH",
+        2,
+        "reporting_aware",
+        "too_few_calib"
+      ]
+    ],
+    "prediction_rows": 39186,
+    "wall_time_seconds": 60.5
+  },
+  "system_benchmark": {
+    "load_source_seconds": 0.09102920000441372,
+    "build_panel_seconds": 6.494795600010548,
+    "panel_rows": 115456,
+    "build_series_seconds": 1.2950150000397116,
+    "peak_memory_mb_data_layer": 42.4,
+    "one_time_fit_all_conditions_seconds": 2.499,
+    "n_conditions_fitted": 14,
+    "one_week_refresh_seconds_all_series": 0.8219,
+    "n_forecasts_per_refresh": 616,
+    "seconds_per_forecast": 0.001334,
+    "peak_memory_mb_full_pipeline": 42.4,
+    "hardware_note": "single CPU thread, no GPU, commodity laptop-class hardware; all numbers wall-clock",
+    "operational_interpretation": "Refreshing forecasts for all 616 active district-condition series after a new weekly bulletin takes about 0.82s once models are fitted; the one-time cost of fitting one LightGBM per condition is 2.5s. Both are negligible relative to the weekly reporting cadence, so the pipeline is operationally deployable on commodity hardware without GPUs or distributed compute -- relevant to real-world smart-surveillance deployment, not just an offline benchmark."
+  },
+  "ipw_model_manifest": {
+    "run_id": "ipw_1787725465",
+    "seeds": [
+      20260826,
+      1,
+      2,
+      3,
+      4
+    ],
+    "max_weight_cap": 20.0,
+    "fit_count": 330,
+    "fail_count": 0,
+    "prediction_rows": 391860,
+    "wall_time_seconds": 178.1
+  },
+  "local_model_manifest": {
+    "run_id": "local_models_1787721791",
+    "fit_count": 396,
+    "skip_count": 180,
+    "fail_count": 0,
+    "prediction_rows": 235116,
+    "models": [
+      "ridge_mask",
+      "poisson_mask",
+      "negbin_mask",
+      "random_forest_mask",
+      "lightgbm_mask",
+      "lightgbm_nomask"
+    ],
+    "conditions": [
+      "AD_noncholera",
+      "Malaria",
+      "ILI",
+      "SARI",
+      "ALRI_u5",
+      "Bloody_diarrhoea",
+      "Typhoid",
+      "Dog_bite",
+      "AWD_cholera",
+      "AVH",
+      "Cut_leishmaniasis",
+      "VH_BCD",
+      "Chickenpox",
+      "Measles",
+      "TB",
+      "Dengue"
+    ],
+    "complete_conditions": [
+      "AD_noncholera",
+      "Malaria",
+      "ILI",
+      "ALRI_u5",
+      "Bloody_diarrhoea",
+      "Typhoid"
+    ],
+    "horizons": [
+      1,
+      2,
+      4
+    ],
+    "final_test_origins": 20,
+    "wall_time_seconds": 480.1,
+    "research_data_used": true
+  },
+  "quality_flag_sensitivity_manifest": {
+    "flagged_weeks": [
+      "2023w16",
+      "2023w22",
+      "2023w26",
+      "2024w36",
+      "2024w37",
+      "2024w40",
+      "2024w41",
+      "2024w49",
+      "2024w50",
+      "2025w9",
+      "2026w26"
+    ],
+    "n_flagged_weeks": 11,
+    "rows_total": 211680,
+    "rows_dropped_as_flagged": 11988,
+    "share_dropped": 0.0566
+  },
+  "heterogeneity_top5_lowest_mae": [
+    {
+      "condition": "Cut_leishmaniasis",
+      "district": "Buner",
+      "horizon": 1,
+      "mode": "zero_fill",
+      "model": "lightgbm",
+      "n": 18,
+      "MAE": 0.20997314308568,
+      "target_mean": 0.0
+    },
+    {
+      "condition": "Cut_leishmaniasis",
+      "district": "Upper Kurram",
+      "horizon": 1,
+      "mode": "zero_fill",
+      "model": "lightgbm",
+      "n": 19,
+      "MAE": 0.2116329129003371,
+      "target_mean": 0.0
+    },
+    {
+      "condition": "Cut_leishmaniasis",
+      "district": "Kolai Palas",
+      "horizon": 1,
+      "mode": "zero_fill",
+      "model": "lightgbm",
+      "n": 19,
+      "MAE": 0.2116329129003371,
+      "target_mean": 0.0
+    },
+    {
+      "condition": "Cut_leishmaniasis",
+      "district": "South Waziristan Upper",
+      "horizon": 1,
+      "mode": "zero_fill",
+      "model": "lightgbm",
+      "n": 19,
+      "MAE": 0.2116329129003371,
+      "target_mean": 0.0
+    },
+    {
+      "condition": "Cut_leishmaniasis",
+      "district": "Swabi",
+      "horizon": 1,
+      "mode": "zero_fill",
+      "model": "lightgbm",
+      "n": 19,
+      "MAE": 0.2116329129003371,
+      "target_mean": 0.0
+    }
+  ]
+}

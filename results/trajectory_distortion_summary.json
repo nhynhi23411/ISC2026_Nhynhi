@@ -1,0 +1,14 @@
+{
+  "Measles": {
+    "weeks_present_of_164": 85,
+    "pct_8wk_trend_direction_disagreement": 0.1472,
+    "pct_censored_weeks_with_over25pct_relative_diff": 0.8101,
+    "n_censored_weeks": 79
+  },
+  "TB": {
+    "weeks_present_of_164": 78,
+    "pct_8wk_trend_direction_disagreement": 0.2025,
+    "pct_censored_weeks_with_over25pct_relative_diff": 0.6628,
+    "n_censored_weeks": 86
+  }
+}

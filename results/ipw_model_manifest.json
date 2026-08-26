@@ -1,0 +1,15 @@
+{
+  "run_id": "ipw_1787725465",
+  "seeds": [
+    20260826,
+    1,
+    2,
+    3,
+    4
+  ],
+  "max_weight_cap": 20.0,
+  "fit_count": 330,
+  "fail_count": 0,
+  "prediction_rows": 391860,
+  "wall_time_seconds": 178.1
+}

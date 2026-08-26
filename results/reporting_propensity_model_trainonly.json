@@ -1,0 +1,10 @@
+{
+  "const": -17.886733084144495,
+  "coef_log1p_last_provincial_total": 2.9756596492309346,
+  "transition_week": "2023w32",
+  "test_start_t": 144,
+  "n_train_obs": 1190,
+  "auroc_in_sample_train_only": 0.8054466680420881,
+  "fit_scope": "weeks t < 144 only (strictly before the locked final 20 test origins).",
+  "note": "Safe to use as a causal forecasting feature: never saw presence/volume data from the locked test block."
+}
