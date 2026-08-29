@@ -128,6 +128,13 @@ def main():
     stress_man = LOCAL / "missingness_stress_manifest.json"
     data["missingness_stress_manifest"] = json.loads(stress_man.read_text(encoding="utf-8")) if stress_man.exists() else None
 
+    tg = safe_read_csv(LOCAL / "temporal_generalization_metrics.csv")
+    data["temporal_generalization_metrics"] = tg.to_dict(orient="records") if tg is not None else None
+    fa = safe_read_csv(LOCAL / "feature_ablation_metrics.csv")
+    data["feature_ablation_metrics"] = fa.to_dict(orient="records") if fa is not None else None
+    ga_man = LOCAL / "generalization_ablation_manifest.json"
+    data["generalization_ablation_manifest"] = json.loads(ga_man.read_text(encoding="utf-8")) if ga_man.exists() else None
+
     # Latest novelty outputs are maintained separately from the original
     # Modal bundle; include them so the DOCX and package have one auditable
     # source of truth rather than stale null placeholders.

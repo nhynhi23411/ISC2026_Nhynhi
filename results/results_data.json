@@ -2015,6 +2015,428 @@
     "wall_time_seconds": 79.87,
     "modal_used": false
   },
+  "temporal_generalization_metrics": [
+    {
+      "block_start": 80,
+      "horizon": 1,
+      "mode": "reporting_aware",
+      "n": 2720,
+      "MAE": 52.439017376493545,
+      "RMSE": 133.06681243585578
+    },
+    {
+      "block_start": 80,
+      "horizon": 1,
+      "mode": "zero_fill",
+      "n": 2720,
+      "MAE": 52.44238262440796,
+      "RMSE": 132.2202935089188
+    },
+    {
+      "block_start": 80,
+      "horizon": 2,
+      "mode": "reporting_aware",
+      "n": 2722,
+      "MAE": 44.27687826447052,
+      "RMSE": 107.16611673200411
+    },
+    {
+      "block_start": 80,
+      "horizon": 2,
+      "mode": "zero_fill",
+      "n": 2722,
+      "MAE": 44.40722766429787,
+      "RMSE": 107.46148890295962
+    },
+    {
+      "block_start": 80,
+      "horizon": 4,
+      "mode": "reporting_aware",
+      "n": 2713,
+      "MAE": 39.07588740763933,
+      "RMSE": 98.59211180335151
+    },
+    {
+      "block_start": 80,
+      "horizon": 4,
+      "mode": "zero_fill",
+      "n": 2713,
+      "MAE": 39.78540417363542,
+      "RMSE": 98.16313886527956
+    },
+    {
+      "block_start": 100,
+      "horizon": 1,
+      "mode": "reporting_aware",
+      "n": 2722,
+      "MAE": 51.0829163626992,
+      "RMSE": 161.17049059892878
+    },
+    {
+      "block_start": 100,
+      "horizon": 1,
+      "mode": "zero_fill",
+      "n": 2722,
+      "MAE": 50.45654457860709,
+      "RMSE": 163.2355409849527
+    },
+    {
+      "block_start": 100,
+      "horizon": 2,
+      "mode": "reporting_aware",
+      "n": 2720,
+      "MAE": 51.63472878471055,
+      "RMSE": 162.42771628232802
+    },
+    {
+      "block_start": 100,
+      "horizon": 2,
+      "mode": "zero_fill",
+      "n": 2720,
+      "MAE": 50.35088769856898,
+      "RMSE": 160.56687576635716
+    },
+    {
+      "block_start": 100,
+      "horizon": 4,
+      "mode": "reporting_aware",
+      "n": 2719,
+      "MAE": 52.81527787695392,
+      "RMSE": 175.31813228436795
+    },
+    {
+      "block_start": 100,
+      "horizon": 4,
+      "mode": "zero_fill",
+      "n": 2719,
+      "MAE": 52.884151990948354,
+      "RMSE": 175.34695618203676
+    },
+    {
+      "block_start": 120,
+      "horizon": 1,
+      "mode": "reporting_aware",
+      "n": 2649,
+      "MAE": 40.682522746582784,
+      "RMSE": 109.28282179399314
+    },
+    {
+      "block_start": 120,
+      "horizon": 1,
+      "mode": "zero_fill",
+      "n": 2649,
+      "MAE": 40.64472895502217,
+      "RMSE": 108.6504505351471
+    },
+    {
+      "block_start": 120,
+      "horizon": 2,
+      "mode": "reporting_aware",
+      "n": 2648,
+      "MAE": 37.140882320931766,
+      "RMSE": 92.65474518122444
+    },
+    {
+      "block_start": 120,
+      "horizon": 2,
+      "mode": "zero_fill",
+      "n": 2648,
+      "MAE": 37.17145151080729,
+      "RMSE": 93.39744817115267
+    },
+    {
+      "block_start": 120,
+      "horizon": 4,
+      "mode": "reporting_aware",
+      "n": 2646,
+      "MAE": 33.47463195565782,
+      "RMSE": 83.9320454471488
+    },
+    {
+      "block_start": 120,
+      "horizon": 4,
+      "mode": "zero_fill",
+      "n": 2646,
+      "MAE": 33.594220776273296,
+      "RMSE": 84.44226856057736
+    },
+    {
+      "block_start": 140,
+      "horizon": 1,
+      "mode": "reporting_aware",
+      "n": 2655,
+      "MAE": 33.27417802683342,
+      "RMSE": 92.79362152305193
+    },
+    {
+      "block_start": 140,
+      "horizon": 1,
+      "mode": "zero_fill",
+      "n": 2655,
+      "MAE": 33.17599861752673,
+      "RMSE": 93.28429439366016
+    },
+    {
+      "block_start": 140,
+      "horizon": 2,
+      "mode": "reporting_aware",
+      "n": 2658,
+      "MAE": 33.99182538458958,
+      "RMSE": 93.85323156105412
+    },
+    {
+      "block_start": 140,
+      "horizon": 2,
+      "mode": "zero_fill",
+      "n": 2658,
+      "MAE": 34.1038590469869,
+      "RMSE": 93.75707511008692
+    },
+    {
+      "block_start": 140,
+      "horizon": 4,
+      "mode": "reporting_aware",
+      "n": 2661,
+      "MAE": 34.44558637530456,
+      "RMSE": 96.01075160545648
+    },
+    {
+      "block_start": 140,
+      "horizon": 4,
+      "mode": "zero_fill",
+      "n": 2661,
+      "MAE": 34.254949645984205,
+      "RMSE": 95.53762807711996
+    }
+  ],
+  "feature_ablation_metrics": [
+    {
+      "component": "base",
+      "horizon": 1,
+      "mode": "reporting_aware",
+      "n": 4215,
+      "MAE": 44.35627505939272,
+      "RMSE": 140.52764129434615
+    },
+    {
+      "component": "base",
+      "horizon": 1,
+      "mode": "zero_fill",
+      "n": 4215,
+      "MAE": 44.483910133153245,
+      "RMSE": 141.05986809483224
+    },
+    {
+      "component": "base",
+      "horizon": 2,
+      "mode": "reporting_aware",
+      "n": 3993,
+      "MAE": 45.55186861406844,
+      "RMSE": 145.92243504033922
+    },
+    {
+      "component": "base",
+      "horizon": 2,
+      "mode": "zero_fill",
+      "n": 3993,
+      "MAE": 44.948802767529145,
+      "RMSE": 143.8244711025731
+    },
+    {
+      "component": "base",
+      "horizon": 4,
+      "mode": "reporting_aware",
+      "n": 3552,
+      "MAE": 47.92775189445542,
+      "RMSE": 154.1719249344832
+    },
+    {
+      "component": "base",
+      "horizon": 4,
+      "mode": "zero_fill",
+      "n": 3552,
+      "MAE": 47.41980781872944,
+      "RMSE": 152.86492148341688
+    },
+    {
+      "component": "mask_full",
+      "horizon": 1,
+      "mode": "reporting_aware",
+      "n": 4215,
+      "MAE": 44.32831236323419,
+      "RMSE": 139.72872732968366
+    },
+    {
+      "component": "mask_full",
+      "horizon": 1,
+      "mode": "zero_fill",
+      "n": 4215,
+      "MAE": 44.5226460116565,
+      "RMSE": 141.64975422114784
+    },
+    {
+      "component": "mask_full",
+      "horizon": 2,
+      "mode": "reporting_aware",
+      "n": 3993,
+      "MAE": 45.1848695791792,
+      "RMSE": 143.84741474720295
+    },
+    {
+      "component": "mask_full",
+      "horizon": 2,
+      "mode": "zero_fill",
+      "n": 3993,
+      "MAE": 45.501072548789054,
+      "RMSE": 146.1923726607438
+    },
+    {
+      "component": "mask_full",
+      "horizon": 4,
+      "mode": "reporting_aware",
+      "n": 3552,
+      "MAE": 47.71289913221885,
+      "RMSE": 152.48178290793084
+    },
+    {
+      "component": "mask_full",
+      "horizon": 4,
+      "mode": "zero_fill",
+      "n": 3552,
+      "MAE": 47.45183342500102,
+      "RMSE": 153.09553789048792
+    },
+    {
+      "component": "missing_run",
+      "horizon": 1,
+      "mode": "reporting_aware",
+      "n": 4215,
+      "MAE": 44.21070595202241,
+      "RMSE": 139.69197710268122
+    },
+    {
+      "component": "missing_run",
+      "horizon": 1,
+      "mode": "zero_fill",
+      "n": 4215,
+      "MAE": 44.68395384586506,
+      "RMSE": 142.1203036503157
+    },
+    {
+      "component": "missing_run",
+      "horizon": 2,
+      "mode": "reporting_aware",
+      "n": 3993,
+      "MAE": 45.28798307860061,
+      "RMSE": 144.26607856576717
+    },
+    {
+      "component": "missing_run",
+      "horizon": 2,
+      "mode": "zero_fill",
+      "n": 3993,
+      "MAE": 45.29220682971137,
+      "RMSE": 144.9590247174563
+    },
+    {
+      "component": "missing_run",
+      "horizon": 4,
+      "mode": "reporting_aware",
+      "n": 3552,
+      "MAE": 47.83641375596344,
+      "RMSE": 153.81903856055524
+    },
+    {
+      "component": "missing_run",
+      "horizon": 4,
+      "mode": "zero_fill",
+      "n": 3552,
+      "MAE": 47.18255899738352,
+      "RMSE": 151.76412120211194
+    },
+    {
+      "component": "seen_lags",
+      "horizon": 1,
+      "mode": "reporting_aware",
+      "n": 4215,
+      "MAE": 44.32208620247132,
+      "RMSE": 140.9967353593567
+    },
+    {
+      "component": "seen_lags",
+      "horizon": 1,
+      "mode": "zero_fill",
+      "n": 4215,
+      "MAE": 44.49477547447763,
+      "RMSE": 141.16254777832108
+    },
+    {
+      "component": "seen_lags",
+      "horizon": 2,
+      "mode": "reporting_aware",
+      "n": 3993,
+      "MAE": 45.4630219146757,
+      "RMSE": 144.67597304619014
+    },
+    {
+      "component": "seen_lags",
+      "horizon": 2,
+      "mode": "zero_fill",
+      "n": 3993,
+      "MAE": 45.24218254816133,
+      "RMSE": 144.97957561361588
+    },
+    {
+      "component": "seen_lags",
+      "horizon": 4,
+      "mode": "reporting_aware",
+      "n": 3552,
+      "MAE": 47.86275202158661,
+      "RMSE": 154.14158308418737
+    },
+    {
+      "component": "seen_lags",
+      "horizon": 4,
+      "mode": "zero_fill",
+      "n": 3552,
+      "MAE": 47.74457719100682,
+      "RMSE": 153.90268550917162
+    }
+  ],
+  "generalization_ablation_manifest": {
+    "status": "ok",
+    "conditions": [
+      "AD_noncholera",
+      "Malaria",
+      "ILI",
+      "ALRI_u5",
+      "Bloody_diarrhoea",
+      "Typhoid"
+    ],
+    "temporal_block_starts": [
+      80,
+      100,
+      120,
+      140
+    ],
+    "horizons": [
+      1,
+      2,
+      4
+    ],
+    "components": [
+      "base",
+      "seen_lags",
+      "missing_run",
+      "mask_full"
+    ],
+    "test_origins": 20,
+    "temporal_prediction_rows": 64466,
+    "ablation_prediction_rows": 94080,
+    "wall_time_seconds": 327.44,
+    "modal_used": false,
+    "leakage_control": "train targets and features are strictly before each test block"
+  },
   "mnar_test_summary": {
     "n_obs": 1390,
     "n_rotating_conditions": 10,

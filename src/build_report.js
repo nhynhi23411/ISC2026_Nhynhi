@@ -398,7 +398,38 @@ children.push(P(
   "Reporting-aware giữ lợi thế ở cả ba cơ chế và lợi thế tăng rõ theo tỷ lệ missingness, đặc biệt tại horizon dài. Ở mức 40% và horizon 4, chênh lệch zero − aware khoảng 4,87–6,07 MAE; ở mức 80%, khoảng 8,51–12,40 MAE, với toàn bộ khoảng tin cậy bootstrap nằm trên 0. Kết quả này củng cố kết luận rằng zero-filling không chỉ thất bại dưới một kiểu missingness duy nhất. Đây vẫn là bằng chứng mô phỏng có kiểm soát trên protocol nghiên cứu, không phải ước lượng nhân quả về incidence thật."
 ));
 
-children.push(H2("5.14 Hiệu năng hệ thống"));
+children.push(H2("5.14 Khả năng tổng quát theo thời gian"));
+children.push(P(
+  "Để tránh việc kết luận chỉ phụ thuộc vào 20 origin cuối, LightGBM với đầy đủ observation-mask được đánh giá trên bốn test block lịch sử bắt đầu tại t = 80, 100, 120 và 140; mỗi block có 12 origin, train chỉ dùng dữ liệu trước block. Reporting-aware không thắng đồng nhất ở mọi block: nó cải thiện nhẹ tại block t = 80 (horizon 4: 39,08 so với 39,79) và t = 140 (horizon 2: 33,99 so với 34,10), nhưng kém hơn ở một số horizon tại t = 100 và t = 120. Điều này cho thấy hiệu quả phụ thuộc vào regime báo cáo và cần được diễn giải là conditional robustness, không phải ưu thế phổ quát."
+));
+children.push(makeTable(
+  ["Test block", "Horizon", "MAE zero-fill", "MAE aware", "Aware tốt hơn?"],
+  [
+    ["t = 80", "1", "52,44", "52,44", "Gần như hòa"],
+    ["t = 80", "4", "39,79", "39,08", "Có"],
+    ["t = 100", "1", "50,46", "51,08", "Không"],
+    ["t = 120", "4", "33,59", "33,47", "Có, nhỏ"],
+    ["t = 140", "2", "34,10", "33,99", "Có, nhỏ"],
+  ],
+  [2200, 1300, 2300, 2200, 3000],
+));
+
+children.push(H2("5.15 Ablation thành phần đặc trưng"));
+children.push(P(
+  "Ablation trên cùng locked test block tách bốn cấu hình: chỉ lag cases (base), seen-lag indicators, missing-run length và full mask. Ở reporting-aware mode, missing-run đạt MAE thấp nhất tại horizon 1 (44,21), còn full mask đạt kết quả tốt hơn base tại horizon 2 (45,18 so với 45,55) và horizon 4 (47,71 so với 47,93). Không có một thành phần đơn lẻ thắng ở mọi horizon, nhưng các chỉ báo quan sát giúp cải thiện có điều kiện và giải thích được vì sao mask không chỉ là metadata dư thừa."
+));
+children.push(makeTable(
+  ["Feature set", "h = 1 aware", "h = 2 aware", "h = 4 aware"],
+  [
+    ["Base lags", "44,36", "45,55", "47,93"],
+    ["Seen-lag indicators", "44,32", "45,46", "47,86"],
+    ["Missing-run length", "44,21", "45,29", "47,84"],
+    ["Full observation mask", "44,33", "45,18", "47,71"],
+  ],
+  [4200, 2200, 2200, 2200],
+));
+
+children.push(H2("5.16 Hiệu năng hệ thống"));
 children.push(makeTable(
   ["Chỉ số", "Giá trị"],
   [
