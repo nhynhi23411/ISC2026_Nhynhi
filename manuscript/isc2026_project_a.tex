@@ -41,7 +41,7 @@ This paper studies that problem in a reproducible district-week-condition settin
 
 The contributions are fourfold. First, we provide an auditable panel construction that separates structural non-reporting, district or cell non-reporting, reported-but-not-recorded values, and observed numeric counts. Second, we evaluate reporting-aware preprocessing across baseline and machine-learning forecasters without using future information. Third, we quantify how reporting rotation changes the apparent disease trajectory and forecast uncertainty. Fourth, we test robustness across temporal blocks, feature ablations, and three injected missingness mechanisms at rates up to 80\%.
 
-The paper is organized as follows. Section~\ref{sec:related} reviews relevant forecasting and missingness perspectives. Section~\ref{sec:data} describes the surveillance panel and observation states. Section~\ref{sec:method} presents reconstruction, features, models, and evaluation. Section~\ref{sec:protocol} defines the experiments. Section~\ref{sec:results} reports the findings, followed by discussion and limitations in Section~\ref{sec:discussion} and conclusions in Section~\ref{sec:conclusion}.
+The paper is organized as follows. Section~\ref{sec:related} reviews relevant forecasting and missingness perspectives. Section~\ref{sec:method} presents the surveillance panel, observation states, reconstruction, features, models, evaluation, and experimental protocol. Section~\ref{sec:results} reports the findings, followed by discussion and limitations in Section~\ref{sec:discussion} and conclusions in Section~\ref{sec:conclusion}.
 
 \section{Related Work}\label{sec:related}
 \begingroup\sloppy
@@ -67,7 +67,8 @@ Standard forecasting practice recommends chronological evaluation and strong nai
 Conformal prediction offers finite-sample validity under exchangeability, but sequential dependence and distribution drift require additional care~\cite{vovk2005algorithmic,romano2019conformal}. Barber et al.~\cite{barber2023conformal} develop methods beyond exchangeability, while Zaffran et al.~\cite{zaffran2022adaptive} adapt conformal scores to time-series forecasting. Recent work also studies component-wise exchangeability for decomposed time series~\cite{prinzhorn2024conformal}. These results motivate our conservative reporting: empirical intervals are evaluated by condition and horizon, conformal-style intervals are reported only when calibration is sufficient, and coverage is not interpreted as guaranteed under the rotating observation process. To our knowledge, prior surveillance nowcasting and conformal forecasting studies have not combined a four-state bulletin audit, reporting-aware reconstruction, trajectory distortion, and multi-mechanism stress testing in one district-week-condition benchmark. This is the specific gap addressed by Project A.
 
 \endgroup
-\section{Data and Observation States}\label{sec:data}
+\section{Method}\label{sec:method}
+\subsection{Data and observation states}\label{sec:data}
 
 \subsection{Surveillance panel and observation states}
 
@@ -108,7 +109,7 @@ The panel explicitly retains both $M_{dct}$ and $P_{ct}$, so structural absence 
 \caption{Reporting-aware forecasting pipeline. The central panel preserves observation states before the two preprocessing alternatives are compared. Forecasting and uncertainty are evaluated on rolling origins, while observation-process analyses form a complementary diagnostic branch.}\label{fig:pipeline}
 \end{figure}
 
-\section{Methodology}\label{sec:method}
+\subsection{Reconstruction and forecasting}
 
 \subsection{Reconstruction, features, and forecasting models}
 
@@ -144,7 +145,7 @@ We fit a predictive presence diagnostic using recent reported volume and conditi
 \end{equation}
 where $v_{c,t-1}$ is recent reported volume. The result is described as MNAR-like because it is evidence of value-related selection in this data, not a proof of a universal missingness mechanism. A reappearance hazard analysis separates cross-sectional presence prediction from the temporal question of when a missing series returns. We also compare trajectory reconstructions for Measles and TB and evaluate uncertainty coverage by reporting stratum.
 
-\section{Experimental Protocol}\label{sec:protocol}
+\subsection{Experimental protocol}\label{sec:protocol}
 
 All primary forecasts use chronological rolling origins. For origin $o$ and horizon $h$, the target is $y_{dc,o+h-1}$ and the training set satisfies $t<o$. The final 20 origins are locked before model fitting and are not used for feature selection, propensity fitting, or interval calibration. The minimum training history is 12 weeks and the evaluated horizons are 1, 2, and 4 weeks. The primary observed-target metric is therefore conditional on the target being recorded, which is stated explicitly in every result. For a stress-test mechanism $g$, injection rate $r$, and horizon $h$, our estimand is the paired degradation
 \begin{equation}
@@ -205,7 +206,7 @@ Temporal generalization is conditional rather than universal. With the full mask
 
 LightGBM produced the strongest condition-specific results in the extended family, for example MAE 5.051 at horizon one for Measles and 5.653 for Typhoid. Propensity used as a train-only feature improved the paired estimate in all six evaluated condition groups and was stable across the tested seeds. The same quantity used as a simple inverse-propensity loss weight did not improve the complete group and harmed the rotating group. A hazard model achieved AUROC 0.815 for reappearance duration, compared with 0.545 for recent volume alone, based on 37 events in 623 person-period rows.
 
-\section{Discussion and Limitations}\label{sec:discussion}
+\section{Discussion}\label{sec:discussion}
 
 The results support a narrow methodological message. Reporting-aware preprocessing is most useful when the observation process creates genuine rotation or long reporting gaps. The complete-condition baseline contrast is small because those conditions are present throughout the bulletin sequence. Conversely, trajectory distortion and the multi-mechanism stress test show that zero-filling can become increasingly consequential as missingness and forecast horizon grow. The temporal block results caution against presenting the method as universally superior. A more defensible interpretation is that the observation process should be audited and exposed to the model when it is predictive of the recorded value.
 
