@@ -71,8 +71,7 @@ Block-based conformal inference for dependent data~\cite{chernozhukov2018exact} 
 Conformal prediction offers finite-sample validity under exchangeability, but sequential dependence and distribution drift require additional care~\cite{vovk2005algorithmic,romano2019conformal}. Barber et al.~\cite{barber2023conformal} develop methods beyond exchangeability, while Zaffran et al.~\cite{zaffran2022adaptive} adapt conformal scores to time-series forecasting. Recent work also studies component-wise exchangeability for decomposed time series~\cite{prinzhorn2024conformal}. These results motivate our conservative reporting: empirical intervals are evaluated by condition and horizon, conformal-style intervals are reported only when calibration is sufficient, and coverage is not interpreted as guaranteed under the rotating observation process. To our knowledge, prior surveillance nowcasting and conformal forecasting studies have not combined a four-state bulletin audit, reporting-aware reconstruction, trajectory distortion, and multi-mechanism stress testing in one district-week-condition benchmark. This is the specific gap addressed by Project A.
 
 \endgroup
-\section{Method}\label{sec:method}
-\subsection{Data and observation states}\label{sec:data}
+\section{Data and Methodology}\label{sec:method}
 
 \subsection{Surveillance panel and observation states}
 
@@ -113,9 +112,7 @@ The panel explicitly retains both $M_{dct}$ and $P_{ct}$, so structural absence 
 \caption{Reporting-aware forecasting pipeline. The central panel preserves observation states before the two preprocessing alternatives are compared. Forecasting and uncertainty are evaluated on rolling origins, while observation-process analyses form a complementary diagnostic branch.}\label{fig:pipeline}
 \end{figure}
 
-\subsection{Reconstruction and forecasting}
-
-\subsection{Reconstruction, features, and forecasting models}
+\subsection{Reporting-aware reconstruction and forecasting models}
 
 For zero-fill, an unobserved historical value is replaced by zero. For reporting-aware reconstruction, the historical value is carried forward from the most recent observed value for the same condition and district. We implement this as a censoring-aware operator
 \begin{equation}
@@ -161,11 +158,11 @@ The principal stress test injects missingness only into pre-test history while r
 
 \section{Results}\label{sec:results}
 
-\subsection{Panel audit and missingness mechanism}
+\subsection{Panel audit and reporting mechanism}
 
 The four-state audit produced the panel composition in Table~\ref{tab:data}. The predictive presence diagnostic yielded a coefficient of 2.31 (95\% CI [1.81, 2.81], $p=6.1\times10^{-20}$). AUROC was 0.805 with recent volume alone and 0.925 after adding condition fixed effects. These values support a value-related selection signal in the reporting process, while not identifying a causal incidence model.
 
-\subsection{Baseline forecasting}
+\subsection{Forecasting performance}
 
 On the locked final block, the pooled four-observation moving average was the strongest baseline. At horizon one, zero-fill and reporting-aware MAE were 30.1934 and 30.1703, respectively. At horizons two and four, the corresponding MAE values were 30.4764 versus 30.4514 and 31.7226 versus 31.6950. The contrast is small for the complete six-condition set. In the rotating-condition stress test, paired gains favored reporting-aware preprocessing by 0.167 MAE for last-value and 0.634 MAE for seasonal-naive at horizon one, with bootstrap intervals [0.057, 0.299] and [0.421, 0.876].
 
@@ -200,13 +197,13 @@ Value-dependent & 80\% & 72.38 & 59.98 & 12.40 [7.56, 18.46] \\
 \end{tabular}
 \end{table}
 
-\subsection{Stress test, temporal generalization, and ablation}
+\subsection{Stress tests and temporal generalization}
 
 The multi-mechanism stress test in Table~\ref{tab:stress} consistently favors reporting-aware reconstruction and shows a larger gap as historical missingness increases. This is controlled simulation evidence: the target values are known and only the historical observation mask is perturbed. It is not a causal estimate of disease incidence.
 
 Temporal generalization is conditional rather than universal. With the full mask, aware MAE improved at several historical blocks, including horizon four at $t=80$ (39.08 versus 39.79), but zero-fill was lower at other blocks such as horizon one at $t=100$ (50.46 versus 51.08). The ablation gives a similar message. For reporting-aware forecasts, base-lag MAE was 44.36, 45.55, and 47.93 at horizons 1, 2, and 4. Adding seen-lag indicators yielded 44.32, 45.46, and 47.86; missing-run length yielded 44.21, 45.29, and 47.84; and the full mask yielded 44.33, 45.18, and 47.71. No single component dominates every horizon, but observation features provide measurable conditional information.
 
-\subsection{Additional model and robustness findings}
+\subsection{Additional robustness analyses}
 
 LightGBM produced the strongest condition-specific results in the extended family, for example MAE 5.051 at horizon one for Measles and 5.653 for Typhoid. Propensity used as a train-only feature improved the paired estimate in all six evaluated condition groups and was stable across the tested seeds. The same quantity used as a simple inverse-propensity loss weight did not improve the complete group and harmed the rotating group. A hazard model achieved AUROC 0.815 for reappearance duration, compared with 0.545 for recent volume alone, based on 37 events in 623 person-period rows.
 
