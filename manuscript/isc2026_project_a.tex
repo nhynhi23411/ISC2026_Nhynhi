@@ -187,13 +187,6 @@ and separately report the fraction of censored weeks with relative distortion ab
 \caption{Trajectory distortion for two rotating conditions. The red reconstruction treats an unobserved week as zero, whereas the teal reconstruction carries forward the last observed count. Shaded intervals mark structurally unreported weeks.}\label{fig:trajectory}
 \end{figure}
 
-\begin{figure}
-\centering
-\includegraphics[width=\columnwidth]{figure4_error_coverage.png}
-\caption{Error and interval coverage by disease and horizon. Point-error magnitude and nominal coverage vary across conditions, motivating stratified reporting.}
-\label{fig:coverage}
-\end{figure}
-
 \begin{table}
 \caption{Multi-mechanism stress test at horizon four. Values are pooled MAE across 6 complete conditions, 44 districts, 20 repetitions, and the locked target origins.}\label{tab:stress}
 \centering
@@ -214,6 +207,13 @@ Value-dependent & 80\% & 72.38 & 59.98 & 12.40 [7.56, 18.46] \\
 \subsection{Stress tests and temporal generalization}
 
 The multi-mechanism stress test in Table~\ref{tab:stress} consistently favors reporting-aware reconstruction and shows a larger gap as historical missingness increases. This is controlled simulation evidence: the target values are known and only the historical observation mask is perturbed. It is not a causal estimate of disease incidence.
+
+\begin{figure}
+\centering
+\includegraphics[width=\columnwidth]{figure4_error_coverage.png}
+\caption{Error and interval coverage by disease and horizon. Point-error magnitude and nominal coverage vary across conditions, motivating stratified reporting.}
+\label{fig:coverage}
+\end{figure}
 
 Temporal generalization is conditional rather than universal. With the full mask, aware MAE improved at several historical blocks, including horizon four at $t=80$ (39.08 versus 39.79), but zero-fill was lower at other blocks such as horizon one at $t=100$ (50.46 versus 51.08). The ablation gives a similar message. For reporting-aware forecasts, base-lag MAE was 44.36, 45.55, and 47.93 at horizons 1, 2, and 4. Adding seen-lag indicators yielded 44.32, 45.46, and 47.86; missing-run length yielded 44.21, 45.29, and 47.84; and the full mask yielded 44.33, 45.18, and 47.71. No single component dominates every horizon, but observation features provide measurable conditional information.
 
@@ -237,9 +237,10 @@ This paper presented an observation-aware forecasting protocol for rotating dise
 \subsubsection{Competing Interests} The authors have no competing interests to declare that are relevant to the content of this paper.
 \end{credits}
 
+\vspace{-0.18in}
 \begingroup
 \sloppy
-\small
+\footnotesize
 \begin{thebibliography}{99}
 \bibitem{little2019statistical}
 Little, R.J.A., Rubin, D.B.: Statistical Analysis with Missing Data, 3rd edn. Wiley, Hoboken (2019)
