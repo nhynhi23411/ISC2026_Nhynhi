@@ -45,11 +45,25 @@ The paper is organized as follows. Section~\ref{sec:related} reviews relevant fo
 
 \section{Related Work}\label{sec:related}
 
-Missing-data methodology distinguishes mechanisms such as missing completely at random, missing at random, and missing not at random, but these labels are assumptions about a data-generating and observation process rather than properties that can be established from a single diagnostic. Classical treatments emphasize that the estimand and the observation mechanism must be considered together~\cite{little2019statistical,rubin1987multiple}. In time series, intermittent observations also create a temporal censoring problem: the length and pattern of a reporting gap can carry information about when a series will reappear.
+\subsection{Missingness is part of the estimand}
 
-Forecasting research provides strong baselines for autoregressive and seasonal problems, and emphasizes rolling evaluation when the deployment setting is temporal~\cite{hyndman2021forecasting}. Tree-based learners can capture nonlinear lag interactions, while count models such as Poisson and negative-binomial regression are natural candidates for nonnegative case counts~\cite{ke2017lightgbm}. However, most forecasting comparisons assume that a missing value has already been resolved and do not treat the reporting process as an object of evaluation.
+The classical missing-data literature distinguishes missing completely at random, missing at random, and missing not at random (MCAR, MAR, and MNAR)~\cite{rubin1976inference,little2019statistical}. These labels are assumptions about the joint data and observation process, not empirical properties that can be established from a single classifier. Diggle and Kenward~\cite{diggle1994informative} showed that informative dropout in longitudinal data can bias both regression parameters and predicted trajectories when the probability of observation depends on unobserved outcomes. This perspective is directly relevant to surveillance tables: the object being predicted, the population on which the error is evaluated, and the mechanism that determines which cells are recorded must be specified together. Our four-state audit operationalizes this requirement by separating structural absence, district-level non-reporting, reported-but-not-recorded values, and observed numeric counts.
 
-Uncertainty methods provide a related validity check. Quantile regression and conformal prediction can construct predictive intervals under suitable exchangeability or calibration conditions~\cite{romano2019conformal,vovk2005algorithmic}. Their empirical coverage can nevertheless be affected by selection and by long reporting gaps. Our work therefore combines point forecasting with an observation-process audit and reports interval coverage only for the combinations with sufficient calibration data.
+\subsection{Epidemiological reporting delay and nowcasting}
+
+Epidemiological nowcasting work typically models events that have occurred but have not yet appeared in the reporting stream. Bastos et al.~\cite{bastos2019reporting} formulate reporting delay as a censoring problem and use a Bayesian hierarchical model to correct a runoff triangle while quantifying uncertainty. Their framework models the delay from event occurrence to eventual report and allows temporal and spatial variation in that delay. It therefore addresses a different missingness geometry from the present study. In our data, a condition can be absent because of a rotating bulletin layout or a district-cell non-report, with no guarantee that the value will later be revealed. We do not claim to recover the unobserved disease burden. Instead, we quantify how the observation state changes the validity of retrospective forecasting and evaluation. This distinction avoids conflating delayed observability with permanent underreporting, a distinction also emphasized in the surveillance nowcasting literature~\cite{bastos2019reporting}.
+
+\subsection{Intermittent counts and zero observations}
+
+Intermittent-demand forecasting treats zero periods and positive arrivals as distinct components. Croston's method updates an estimate of nonzero demand size and an inter-arrival interval separately~\cite{croston1972forecasting}; subsequent work documented the sensitivity of intermittent-demand accuracy to the method and error measure~\cite{syntetos2005accuracy}. These methods provide useful intuition for disease series with sporadic incidence, but a surveillance omission is not necessarily a true zero-demand period. Applying an intermittent-demand model directly to rotating bulletins can therefore mix epidemiological intermittency with censoring induced by the reporting system. Project A keeps this conceptual distinction explicit and compares zero-fill against a reconstruction that carries forward the latest observed value while retaining mask and missing-run features.
+
+\subsection{Forecasting and observation-aware features}
+
+Standard forecasting practice recommends chronological evaluation and strong naive or seasonal benchmarks before more complex models~\cite{hyndman2021forecasting}. Gradient-boosted trees are effective for nonlinear interactions among lagged and contextual variables~\cite{ke2017lightgbm}, while Poisson and negative-binomial models provide count-aware statistical comparators. Existing model comparisons generally assume that the missing-value policy is fixed before training and do not audit whether the policy changes the estimand. The contribution here is therefore not a new forecasting architecture. It is a protocol that exposes the observation process as model input, evaluates it under a locked rolling-origin design, and reports when the advantage disappears under temporal regime changes.
+
+\subsection{Uncertainty under temporal dependence}
+
+Conformal prediction offers finite-sample validity under exchangeability, but sequential dependence and distribution drift require additional care~\cite{vovk2005algorithmic,romano2019conformal}. Barber et al.~\cite{barber2023conformal} develop methods beyond exchangeability, while Zaffran et al.~\cite{zaffran2022adaptive} adapt conformal scores to time-series forecasting. Recent work also studies component-wise exchangeability for decomposed time series~\cite{prinzhorn2024conformal}. These results motivate our conservative reporting: empirical intervals are evaluated by condition and horizon, conformal-style intervals are reported only when calibration is sufficient, and coverage is not interpreted as guaranteed under the rotating observation process. To our knowledge, prior surveillance nowcasting and conformal forecasting studies have not combined a four-state bulletin audit, reporting-aware reconstruction, trajectory distortion, and multi-mechanism stress testing in one district-week-condition benchmark. This is the specific gap addressed by Project A.
 
 \section{Data and Observation States}\label{sec:data}
 
@@ -112,7 +126,11 @@ The reconstruction is used only to form historical features. Evaluation targets 
 
 At each forecast origin $t$, the feature vector contains lags at 1, 2, 4, 8, and 12 weeks, a four-week mean, and sine and cosine seasonal terms:
 \begin{equation}
-\mathbf{x}_{dct}^{(m)}=[\tilde{y}^{(m)}_{dc,t-1},\tilde{y}^{(m)}_{dc,t-2},\tilde{y}^{(m)}_{dc,t-4},\tilde{y}^{(m)}_{dc,t-8},\tilde{y}^{(m)}_{dc,t-12},\overline{y}_{dc,t-4:t-1},\sin(2\pi t/52),\cos(2\pi t/52),\mathbf{z}_{dct}].
+\begin{aligned}
+\mathbf{x}_{dct}^{(m)}=[&\tilde{y}^{(m)}_{dc,t-1},\tilde{y}^{(m)}_{dc,t-2},\tilde{y}^{(m)}_{dc,t-4},\tilde{y}^{(m)}_{dc,t-8},\\
+&\tilde{y}^{(m)}_{dc,t-12},\overline{y}_{dc,t-4:t-1},\sin(2\pi t/52),\\
+&\cos(2\pi t/52),\mathbf{z}_{dct}].
+\end{aligned}
 \end{equation}
 Here $m\in\{0,a\}$ denotes zero-fill or aware reconstruction. The observation vector $\mathbf{z}_{dct}$ contains seen indicators for lag positions and the missing count in the preceding eight weeks. A separate reporting-propensity model uses train-only history to provide a mechanism-informed predictive feature. It is not interpreted as a causal effect estimate.
 
@@ -149,12 +167,6 @@ The four-state audit produced the panel composition in Table~\ref{tab:data}. The
 \subsection{Baseline forecasting}
 
 On the locked final block, the pooled four-observation moving average was the strongest baseline. At horizon one, zero-fill and reporting-aware MAE were 30.1934 and 30.1703, respectively. At horizons two and four, the corresponding MAE values were 30.4764 versus 30.4514 and 31.7226 versus 31.6950. The contrast is small for the complete six-condition set. In the rotating-condition stress test, paired gains favored reporting-aware preprocessing by 0.167 MAE for last-value and 0.634 MAE for seasonal-naive at horizon one, with bootstrap intervals [0.057, 0.299] and [0.421, 0.876].
-
-\begin{figure}
-\centering
-\includegraphics[width=\textwidth]{figure3_paired_errors.png}
-\caption{Paired forecast error for the six complete conditions. Red and blue are reserved for zero-fill and reporting-aware preprocessing, respectively, and are paired with direct labels in the legend.}\label{fig:paired}
-\end{figure}
 
 \subsection{Trajectory distortion and uncertainty}
 
@@ -213,12 +225,29 @@ This paper presented an observation-aware forecasting protocol for rotating dise
 \subsubsection{Competing Interests} The authors have no competing interests to declare that are relevant to the content of this paper.
 \end{credits}
 
-\begin{thebibliography}{8}
+\begingroup
+\sloppy
+\begin{thebibliography}{99}
 \bibitem{little2019statistical}
 Little, R.J.A., Rubin, D.B.: Statistical Analysis with Missing Data, 3rd edn. Wiley, Hoboken (2019)
 
+\bibitem{rubin1976inference}
+Rubin, D.B.: Inference and missing data. Biometrika \textbf{63}(3), 581--592 (1976). \doi{10.1093/biomet/63.3.581}
+
 \bibitem{rubin1987multiple}
 Rubin, D.B.: Multiple Imputation for Nonresponse in Surveys. Wiley, New York (1987)
+
+\bibitem{diggle1994informative}
+Diggle, P., Kenward, M.G.: Informative drop-out in longitudinal data analysis. Applied Statistics \textbf{43}(1), 49--93 (1994)
+
+\bibitem{bastos2019reporting}
+Bastos, L.S., Economou, T., Gomes, M.F.C., et al.: A modelling approach for correcting reporting delays in disease surveillance data. Statistics in Medicine \textbf{38}, 4363--4377 (2019). \doi{10.1002/sim.8303}
+
+\bibitem{croston1972forecasting}
+Croston, J.D.: Forecasting and stock control for intermittent demands. Operational Research Quarterly \textbf{23}(3), 289--303 (1972)
+
+\bibitem{syntetos2005accuracy}
+Syntetos, A.A., Boylan, J.E.: The accuracy of intermittent demand estimates. International Journal of Forecasting \textbf{21}(2), 303--314 (2005). \doi{10.1016/j.ijforecast.2004.10.001}
 
 \bibitem{hyndman2021forecasting}
 Hyndman, R.J., Athanasopoulos, G.: Forecasting: Principles and Practice, 3rd edn. OTexts, Melbourne (2021)
@@ -232,11 +261,21 @@ Romano, Y., Patterson, E., Cand\`es, E.J.: Conformalized quantile regression. In
 \bibitem{vovk2005algorithmic}
 Vovk, V., Gammerman, A., Shafer, G.: Algorithmic Learning in a Random World. Springer, New York (2005)
 
+\bibitem{barber2023conformal}
+Barber, R.F., Cand\`es, E.J., Ramdas, A., Tibshirani, R.J.: Conformal prediction beyond exchangeability. Annals of Statistics \textbf{51}(2), 816--845 (2023)
+
+\bibitem{zaffran2022adaptive}
+Zaffran, M., Dieuleveut, A., Lozano, A.C., Romano, Y.: Adaptive conformal predictions for time series. In: Proceedings of the 39th International Conference on Machine Learning, PMLR, vol. 162, pp. 25834--25866 (2022)
+
+\bibitem{prinzhorn2024conformal}
+Prinzhorn, D., Nijdam, T., van der Linden, P., Timans, A.: Conformal time series decomposition with component-wise exchangeability. In: Proceedings of the Thirteenth Symposium on Conformal and Probabilistic Prediction with Applications, PMLR, vol. 230, pp. 432--465 (2024)
+
 \bibitem{nawab2026surveillance}
 Nawab, S., Khan, G., Abbas, A., et al.: District-week notifiable infectious disease surveillance data for Khyber Pakhtunkhwa, Pakistan, 2023--2026. Mendeley Data, version 1 (2026). \doi{10.17632/9yzvfgrhkt.1}
 
 \bibitem{isc2026}
 International Computer Symposium 2026: Call for papers and submission instructions. \url{https://www.ics2026.ntub.edu.tw/call-for-paper/}
 \end{thebibliography}
+\endgroup
 
 \end{document}
