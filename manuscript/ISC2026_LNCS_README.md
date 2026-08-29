@@ -10,6 +10,10 @@
 - `Pipline.png`: author-supplied pipeline figure used as Fig. 1.
 - `figure5_trajectory_distortion.png`: optional result figure available for a later revision.
 
+## Figure palette
+
+Figures use a restrained, color-blind-aware palette with redundant labels: navy or red for the zero-fill reference, teal or blue for reporting-aware reconstruction, purple for uncertainty, and orange for diagnostics or stress conditions. Colors should not be the only carrier of meaning when figures are revised.
+
 ## Before submission
 
 1. Replace the author, affiliation, email, and best-student-award placeholders.

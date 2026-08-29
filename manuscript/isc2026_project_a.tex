@@ -16,14 +16,16 @@
 \title{Missing Does Not Mean Zero: Reporting-Aware Forecasting for Rotating Disease Surveillance}
 \titlerunning{Reporting-Aware Forecasting for Disease Surveillance}
 
-\author{Nhi-Yen Nguyen-Huynh\inst{1} \and
-[Co-author Name]\inst{1}}
-\authorrunning{N.-Y. Nguyen-Huynh et al.}
-\institute{[Department or Laboratory], [Institution], [City], [Country]\\
-\email{[corresponding.author@email]}}
+\author{Nhi-Yen Nguyen-Huynh\inst{1,2} \and
+Nguyen Quoc Khanh Le\inst{2,4}\thanks{Corresponding author: Nguyen Quoc Khanh Le. Tel.: +886-02-27361661 \\#7174; E-mail: khanhlee@tmu.edu.tw.}}
+\authorrunning{N.-Y. Nguyen-Huynh and N.Q.K. Le}
+\institute{University of Economics and Law, Vietnam National University Ho Chi Minh City, Ho Chi Minh City, Vietnam\inst{1} \\
+AIBioMed Lab, Taipei Medical University, Taipei, Taiwan\inst{2} \\
+International Ph.D. Program in Medicine, College of Medicine, Taipei Medical University, Taipei, Taiwan\inst{3} \\
+In-Service Master Program in Artificial Intelligence in Medicine, College of Medicine, Taipei Medical University, Taipei, Taiwan\inst{4}}
 
 \maketitle
-\footnotetext{Best Student Paper Award eligibility: [Eligible / Not eligible].}
+\footnotetext{Best Student Paper Award eligibility: Eligible.}
 
 \begin{abstract}
 Weekly disease surveillance data often omit conditions from a bulletin because of a reporting or ranking process, not because the observed count is zero. Treating such omissions as zeros can therefore distort both historical trajectories and forecast evaluation. This paper presents a reporting-aware forecasting protocol for a district-week-condition panel extracted from 164 weekly surveillance bulletins in Khyber Pakhtunkhwa, Pakistan. The protocol makes four observation states explicit, compares zero-fill with reporting-aware reconstruction, and evaluates forecasts under rolling-origin splits with a locked final test block. In addition to last-value, seasonal, and moving-average baselines, we study count models, tree-based models, uncertainty intervals, observation-process diagnostics, and controlled missingness stress tests. The panel contains 115,456 cells, including 43,384 structurally unreported cells and 12,248 district or cell non-reporting cells. The missingness audit is MNAR-like under a predictive diagnostic, with AUROC 0.805 using recent volume and 0.925 after adding condition fixed effects. Reporting-aware preprocessing improves the rotating-condition stress test for several baselines, while the effect is small for complete conditions. A multi-mechanism stress test shows a larger advantage as injected historical missingness increases, reaching 8.51 to 12.40 MAE points at 80\% missingness and horizon four. Temporal generalization and feature ablations show that the gain depends on the reporting regime and on which observation features are available. The study supports a narrow but practical conclusion: missingness should be modeled as part of the observation process, and absence in a surveillance table should not be silently interpreted as zero incidence.
@@ -78,7 +80,7 @@ Six conditions are present in every bulletin and form the complete confirmatory 
 
 \subsection{Four observation states}
 
-For each panel cell, we define an observation state. An observed target is a numeric count in a condition and district that is present in the source row. A true reported zero is an observed numeric zero. A district or cell non-report is a condition that is listed for the week but has no district-cell row. A structural non-report is a condition that is absent from that week's ranked condition columns. A source row with a missing count is retained as reported-but-not-recorded. These states are kept in the data and are never silently collapsed into a single missing-value flag.
+For each panel cell, we define an observation state. An observed target is a numeric count in a condition and district that is present in the source row. A true reported zero is an observed numeric zero. A district or cell non-report is a condition that is listed for the week but has no district-cell row. A structural non-report is a condition that is absent from that week's ranked condition columns. A source row with a missing count is retained as reported-but-not-recorded. These states are kept in the data and are never silently collapsed into a single missing-value flag. Let $M_{dct}\in\{0,1\}$ denote whether district $d$, condition $c$, and week $t$ has an observed numeric target. Let $P_{ct}$ denote condition presence in the bulletin. The panel explicitly retains both $M_{dct}$ and $P_{ct}$, so structural absence ($P_{ct}=0$) is not confused with a reported zero ($M_{dct}=1$ and $y_{dct}=0$).
 
 \begin{figure}
 \centering
@@ -86,15 +88,25 @@ For each panel cell, we define an observation state. An observed target is a num
 \caption{Reporting-aware forecasting pipeline. The central panel preserves observation states before the two preprocessing alternatives are compared. Forecasting and uncertainty are evaluated on rolling origins, while observation-process analyses form a complementary diagnostic branch.}\label{fig:pipeline}
 \end{figure}
 
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{figure2_reporting_timeline.png}
+\caption{Reporting completeness over time. Navy indicates conditions present in the bulletin and the lighter field indicates periods in which rotating conditions are not listed. The palette is intentionally redundant with the labels so the figure remains interpretable in grayscale.}\label{fig:timeline}
+\end{figure}
+
 \section{Methodology}\label{sec:method}
 
 \subsection{Preprocessing alternatives}
 
-For zero-fill, an unobserved historical value is replaced by zero. For reporting-aware reconstruction, the historical value is carried forward from the most recent observed value for the same condition and district. The reconstruction is used only to form historical features. Evaluation targets remain the original observed counts, and predictions whose targets are not observed are excluded from the primary error metric. This design avoids treating an imputed target as ground truth.
+For zero-fill, an unobserved historical value is replaced by zero, $\tilde{y}^{(0)}_{dct}=y_{dct}$ when $M_{dct}=1$ and $0$ otherwise. For reporting-aware reconstruction, the historical value is carried forward from the most recent observed value for the same condition and district, $\tilde{y}^{(a)}_{dct}=y_{dc\tau^*}$ where $\tau^*=\max\{\tau<t:M_{dc\tau}=1\}$, with zero used only when no earlier observation exists. The reconstruction is used only to form historical features. Evaluation targets remain the original observed counts, and predictions whose targets are not observed are excluded from the primary error metric. This design avoids treating an imputed target as ground truth.
 
 \subsection{Features and forecasting models}
 
-At each forecast origin, the feature vector contains lags at 1, 2, 4, 8, and 12 weeks, a four-week mean, and sine and cosine seasonal terms. The observation-aware variants additionally contain seen indicators for the lag positions and the number of missing observations in the preceding eight weeks. A separate reporting-propensity model uses train-only history to provide a mechanism-informed predictive feature. It is not interpreted as a causal effect estimate.
+At each forecast origin $t$, the feature vector contains lags at 1, 2, 4, 8, and 12 weeks, a four-week mean, and sine and cosine seasonal terms:
+\begin{equation}
+\mathbf{x}_{dct}^{(m)}=[\tilde{y}^{(m)}_{dc,t-1},\tilde{y}^{(m)}_{dc,t-2},\tilde{y}^{(m)}_{dc,t-4},\tilde{y}^{(m)}_{dc,t-8},\tilde{y}^{(m)}_{dc,t-12},\overline{y}_{dc,t-4:t-1},\sin(2\pi t/52),\cos(2\pi t/52),\mathbf{z}_{dct}].
+\end{equation}
+Here $m\in\{0,a\}$ denotes zero-fill or aware reconstruction. The observation vector $\mathbf{z}_{dct}$ contains seen indicators for lag positions and the missing count in the preceding eight weeks. A separate reporting-propensity model uses train-only history to provide a mechanism-informed predictive feature. It is not interpreted as a causal effect estimate.
 
 We evaluate last-value, seasonal-naive, and four-observation moving-average baselines. The extended model family includes ridge regression, log-ridge, Poisson and negative-binomial models, random forest, and LightGBM. The count models are treated as comparative statistical baselines because no population denominator is available for an incidence-rate offset.
 
@@ -108,11 +120,19 @@ and root mean squared error. Paired comparisons use the same district, origin, c
 
 \subsection{Observation-process diagnostics}
 
-We fit a predictive presence diagnostic using recent reported volume and condition fixed effects. The result is described as MNAR-like because it is evidence of value-related selection in this data, not a proof of a universal missingness mechanism. A reappearance hazard analysis separates cross-sectional presence prediction from the temporal question of when a missing series returns. We also compare trajectory reconstructions for Measles and TB and evaluate uncertainty coverage by reporting stratum.
+We fit a predictive presence diagnostic using recent reported volume and condition fixed effects:
+\begin{equation}
+\Pr(P_{ct}=1)=\operatorname{logit}^{-1}(\alpha+\beta\log(1+v_{c,t-1})+\gamma_c),
+\end{equation}
+where $v_{c,t-1}$ is recent reported volume. The result is described as MNAR-like because it is evidence of value-related selection in this data, not a proof of a universal missingness mechanism. A reappearance hazard analysis separates cross-sectional presence prediction from the temporal question of when a missing series returns. We also compare trajectory reconstructions for Measles and TB and evaluate uncertainty coverage by reporting stratum.
 
 \section{Experimental Protocol}\label{sec:protocol}
 
-All primary forecasts use chronological rolling origins. The final 20 origins are locked before model fitting and are not used for feature selection, propensity fitting, or interval calibration. The minimum training history is 12 weeks and the evaluated horizons are 1, 2, and 4 weeks. The primary observed-target metric is therefore conditional on the target being recorded, which is stated explicitly in every result.
+All primary forecasts use chronological rolling origins. For origin $o$ and horizon $h$, the target is $y_{dc,o+h-1}$ and the training set satisfies $t<o$. The final 20 origins are locked before model fitting and are not used for feature selection, propensity fitting, or interval calibration. The minimum training history is 12 weeks and the evaluated horizons are 1, 2, and 4 weeks. The primary observed-target metric is therefore conditional on the target being recorded, which is stated explicitly in every result. Paired improvement is defined as
+\begin{equation}
+\Delta=\operatorname{MAE}_{0}-\operatorname{MAE}_{a},
+\end{equation}
+so positive values favor reporting-aware preprocessing. Confidence intervals are obtained by resampling condition-district clusters rather than treating adjacent weekly predictions as independent.
 
 The principal stress test injects missingness only into pre-test history while retaining the known target values. It compares MCAR sampling, contiguous outage blocks, and value-dependent censoring at 10\%, 20\%, 40\%, 60\%, and 80\%, with 20 repetitions per configuration. The study also evaluates temporal generalization at four historical block starts and performs an ablation of base lags, seen-lag indicators, missing-run length, and the full observation mask. Smoke tests verify panel integrity, chronological splitting, future-feature exclusion, exact injection counts, and untouched test masks before the full local runs.
 
@@ -126,9 +146,21 @@ The four-state audit produced the panel composition in Table~\ref{tab:data}. The
 
 On the locked final block, the pooled four-observation moving average was the strongest baseline. At horizon one, zero-fill and reporting-aware MAE were 30.1934 and 30.1703, respectively. At horizons two and four, the corresponding MAE values were 30.4764 versus 30.4514 and 31.7226 versus 31.6950. The contrast is small for the complete six-condition set. In the rotating-condition stress test, paired gains favored reporting-aware preprocessing by 0.167 MAE for last-value and 0.634 MAE for seasonal-naive at horizon one, with bootstrap intervals [0.057, 0.299] and [0.421, 0.876].
 
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{figure3_paired_errors.png}
+\caption{Paired forecast error for the six complete conditions. Red and blue are reserved for zero-fill and reporting-aware preprocessing, respectively, and are paired with direct labels in the legend.}\label{fig:paired}
+\end{figure}
+
 \subsection{Trajectory distortion and uncertainty}
 
 The trajectory case study makes the preprocessing difference visible. Among censored weeks, the reconstructed values differed by more than 25\% in 81.0\% of Measles weeks and 66.3\% of TB weeks. Empirical residual intervals under-covered: average coverage was approximately 0.718--0.724 for nominal 80\% intervals and 0.823--0.833 for nominal 90\% intervals. Quantile and split-conformal intervals were closer to nominal for combinations with enough training and calibration data; 30 condition-horizon-mode combinations were skipped rather than assigned an unsupported coverage value.
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{figure5_trajectory_distortion.png}
+\caption{Trajectory distortion for two rotating conditions. The red reconstruction treats an unobserved week as zero, whereas the teal reconstruction carries forward the last observed count. Shaded intervals mark structurally unreported weeks.}\label{fig:trajectory}
+\end{figure}
 
 \begin{table}
 \caption{Multi-mechanism stress test at horizon four. Values are pooled MAE across 6 complete conditions, 44 districts, 20 repetitions, and the locked target origins.}\label{tab:stress}
