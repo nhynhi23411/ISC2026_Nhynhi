@@ -80,7 +80,11 @@ Six conditions are present in every bulletin and form the complete confirmatory 
 
 \subsection{Four observation states}
 
-For each panel cell, we define an observation state. An observed target is a numeric count in a condition and district that is present in the source row. A true reported zero is an observed numeric zero. A district or cell non-report is a condition that is listed for the week but has no district-cell row. A structural non-report is a condition that is absent from that week's ranked condition columns. A source row with a missing count is retained as reported-but-not-recorded. These states are kept in the data and are never silently collapsed into a single missing-value flag. Let $M_{dct}\in\{0,1\}$ denote whether district $d$, condition $c$, and week $t$ has an observed numeric target. Let $P_{ct}$ denote condition presence in the bulletin. The panel explicitly retains both $M_{dct}$ and $P_{ct}$, so structural absence ($P_{ct}=0$) is not confused with a reported zero ($M_{dct}=1$ and $y_{dct}=0$).
+For each panel cell, we define an observation state. An observed target is a numeric count in a condition and district that is present in the source row. A true reported zero is an observed numeric zero. A district or cell non-report is a condition that is listed for the week but has no district-cell row. A structural non-report is a condition that is absent from that week's ranked condition columns. A source row with a missing count is retained as reported-but-not-recorded. These states are kept in the data and are never silently collapsed into a single missing-value flag. Let $M_{dct}\in\{0,1\}$ denote whether district $d$, condition $c$, and week $t$ has an observed numeric target, and let $P_{ct}$ denote condition presence in the bulletin. The state encoder used by the pipeline is
+\begin{equation}
+S_{dct}=\begin{cases} \mathrm{positive/zero}, & M_{dct}=1,\\ \mathrm{reported\text{-}NR}, & P_{ct}=1,\ \text{row present},\ M_{dct}=0,\\ \mathrm{cell\text{-}unreported}, & P_{ct}=1,\ \text{row absent},\\ \mathrm{structural\text{-}unreported}, & P_{ct}=0.\end{cases}
+\end{equation}
+The panel explicitly retains both $M_{dct}$ and $P_{ct}$, so structural absence is not confused with a reported zero.
 
 \begin{figure}
 \centering
@@ -98,7 +102,11 @@ For each panel cell, we define an observation state. An observed target is a num
 
 \subsection{Preprocessing alternatives}
 
-For zero-fill, an unobserved historical value is replaced by zero, $\tilde{y}^{(0)}_{dct}=y_{dct}$ when $M_{dct}=1$ and $0$ otherwise. For reporting-aware reconstruction, the historical value is carried forward from the most recent observed value for the same condition and district, $\tilde{y}^{(a)}_{dct}=y_{dc\tau^*}$ where $\tau^*=\max\{\tau<t:M_{dc\tau}=1\}$, with zero used only when no earlier observation exists. The reconstruction is used only to form historical features. Evaluation targets remain the original observed counts, and predictions whose targets are not observed are excluded from the primary error metric. This design avoids treating an imputed target as ground truth.
+For zero-fill, an unobserved historical value is replaced by zero. For reporting-aware reconstruction, the historical value is carried forward from the most recent observed value for the same condition and district. We implement this as a censoring-aware operator
+\begin{equation}
+\tilde{y}^{(a)}_{dct}=\begin{cases}y_{dct},&M_{dct}=1,\\y_{dc\tau^*},&M_{dct}=0,\ \tau^*=\max\{\tau<t:M_{dc\tau}=1\},\\0,&\nexists\tau<t:M_{dc\tau}=1.\end{cases}
+\end{equation}
+The reconstruction is used only to form historical features. Evaluation targets remain the original observed counts, and predictions whose targets are not observed are excluded from the primary error metric. This design avoids treating an imputed target as ground truth.
 
 \subsection{Features and forecasting models}
 
@@ -112,11 +120,7 @@ We evaluate last-value, seasonal-naive, and four-observation moving-average base
 
 \subsection{Evaluation metrics}
 
-For observed targets $y_i$ and predictions $\hat{y}_i$, we report mean absolute error
-\begin{equation}
-\mathrm{MAE}=\frac{1}{n}\sum_{i=1}^{n}|y_i-\hat{y}_i|
-\end{equation}
-and root mean squared error. Paired comparisons use the same district, origin, condition, horizon, and method under the two preprocessing alternatives. Bootstrap intervals resample at the appropriate cluster level when dependence is present.
+For observed targets, we report MAE and RMSE. Paired comparisons use the same district, origin, condition, horizon, and method under the two preprocessing alternatives. Bootstrap intervals resample at the appropriate cluster level when dependence is present. The paper focuses on paired differences and their uncertainty rather than presenting the metric definitions as a contribution.
 
 \subsection{Observation-process diagnostics}
 
@@ -128,11 +132,11 @@ where $v_{c,t-1}$ is recent reported volume. The result is described as MNAR-lik
 
 \section{Experimental Protocol}\label{sec:protocol}
 
-All primary forecasts use chronological rolling origins. For origin $o$ and horizon $h$, the target is $y_{dc,o+h-1}$ and the training set satisfies $t<o$. The final 20 origins are locked before model fitting and are not used for feature selection, propensity fitting, or interval calibration. The minimum training history is 12 weeks and the evaluated horizons are 1, 2, and 4 weeks. The primary observed-target metric is therefore conditional on the target being recorded, which is stated explicitly in every result. Paired improvement is defined as
+All primary forecasts use chronological rolling origins. For origin $o$ and horizon $h$, the target is $y_{dc,o+h-1}$ and the training set satisfies $t<o$. The final 20 origins are locked before model fitting and are not used for feature selection, propensity fitting, or interval calibration. The minimum training history is 12 weeks and the evaluated horizons are 1, 2, and 4 weeks. The primary observed-target metric is therefore conditional on the target being recorded, which is stated explicitly in every result. For a stress-test mechanism $g$, injection rate $r$, and horizon $h$, our estimand is the paired degradation
 \begin{equation}
-\Delta=\operatorname{MAE}_{0}-\operatorname{MAE}_{a},
+\Delta_{g,r,h}=\sum_{d,c,o}w_{dco}\left[\left|y_{d,c,o+h-1}-\hat{y}^{(0,g,r)}_{dcoh}\right|-\left|y_{d,c,o+h-1}-\hat{y}^{(a,g,r)}_{dcoh}\right|\right],
 \end{equation}
-so positive values favor reporting-aware preprocessing. Confidence intervals are obtained by resampling condition-district clusters rather than treating adjacent weekly predictions as independent.
+where $w_{dco}$ are normalized target-count weights. Positive values mean that zero-fill incurs greater error under the specified observation perturbation. Confidence intervals are obtained by resampling condition-district clusters rather than treating adjacent weekly predictions as independent.
 
 The principal stress test injects missingness only into pre-test history while retaining the known target values. It compares MCAR sampling, contiguous outage blocks, and value-dependent censoring at 10\%, 20\%, 40\%, 60\%, and 80\%, with 20 repetitions per configuration. The study also evaluates temporal generalization at four historical block starts and performs an ablation of base lags, seen-lag indicators, missing-run length, and the full observation mask. Smoke tests verify panel integrity, chronological splitting, future-feature exclusion, exact injection counts, and untouched test masks before the full local runs.
 
@@ -154,7 +158,11 @@ On the locked final block, the pooled four-observation moving average was the st
 
 \subsection{Trajectory distortion and uncertainty}
 
-The trajectory case study makes the preprocessing difference visible. Among censored weeks, the reconstructed values differed by more than 25\% in 81.0\% of Measles weeks and 66.3\% of TB weeks. Empirical residual intervals under-covered: average coverage was approximately 0.718--0.724 for nominal 80\% intervals and 0.823--0.833 for nominal 90\% intervals. Quantile and split-conformal intervals were closer to nominal for combinations with enough training and calibration data; 30 condition-horizon-mode combinations were skipped rather than assigned an unsupported coverage value.
+The trajectory case study makes the preprocessing difference visible. We quantify distortion on censored weeks with
+\begin{equation}
+D_c=\frac{1}{|\mathcal{C}_c|}\sum_{t\in\mathcal{C}_c}\frac{|\tilde{y}^{(0)}_{ct}-\tilde{y}^{(a)}_{ct}|}{\max(\tilde{y}^{(a)}_{ct},1)},\quad \mathcal{C}_c=\{t:P_{ct}=0\},
+\end{equation}
+and separately report the fraction of censored weeks with relative distortion above 25\%. The latter was 81.0\% for Measles and 66.3\% for TB. Empirical residual intervals under-covered: average coverage was approximately 0.718--0.724 for nominal 80\% intervals and 0.823--0.833 for nominal 90\% intervals. Quantile and split-conformal intervals were closer to nominal for combinations with enough training and calibration data; 30 condition-horizon-mode combinations were skipped rather than assigned an unsupported coverage value. For a calibration residual quantile $q_{\alpha}$, the split-conformal interval used in the pipeline is $[\max(0,\hat{y}-q_{\alpha}),\hat{y}+q_{\alpha}]$, with $q_{\alpha}$ estimated without the locked test block.
 
 \begin{figure}
 \centering
