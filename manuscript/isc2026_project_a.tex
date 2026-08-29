@@ -52,6 +52,8 @@ The classical missing-data literature distinguishes missing completely at random
 
 \paragraph{Reporting delay and nowcasting.}
 
+NobBS provides a related Bayesian smoothing approach for real-time epidemic tracking~\cite{greene2021nobbs}, while regional now- and forecasting models separate current-case adjustment from short-horizon prediction~\cite{vanderKassteele2022regional}.
+
 Epidemiological nowcasting work typically models events that have occurred but have not yet appeared in the reporting stream. Bastos et al.~\cite{bastos2019reporting} formulate reporting delay as a censoring problem and use a Bayesian hierarchical model to correct a runoff triangle while quantifying uncertainty. Their framework models the delay from event occurrence to eventual report and allows temporal and spatial variation in that delay. It therefore addresses a different missingness geometry from the present study. In our data, a condition can be absent because of a rotating bulletin layout or a district-cell non-report, with no guarantee that the value will later be revealed. We do not claim to recover the unobserved disease burden. Instead, we quantify how the observation state changes the validity of retrospective forecasting and evaluation. This distinction avoids conflating delayed observability with permanent underreporting, a distinction also emphasized in the surveillance nowcasting literature~\cite{bastos2019reporting}.
 
 \paragraph{Intermittent counts and zero observations.}
@@ -63,6 +65,8 @@ Intermittent-demand forecasting treats zero periods and positive arrivals as dis
 Standard forecasting practice recommends chronological evaluation and strong naive or seasonal benchmarks before more complex models~\cite{hyndman2021forecasting}. Gradient-boosted trees are effective for nonlinear interactions among lagged and contextual variables~\cite{ke2017lightgbm}, while Poisson and negative-binomial models provide count-aware statistical comparators. Existing model comparisons generally assume that the missing-value policy is fixed before training and do not audit whether the policy changes the estimand. The contribution here is therefore not a new forecasting architecture. It is a protocol that exposes the observation process as model input, evaluates it under a locked rolling-origin design, and reports when the advantage disappears under temporal regime changes.
 
 \subsection{Uncertainty and the unresolved gap}
+
+Block-based conformal inference for dependent data~\cite{chernozhukov2018exact} and sequential predictive conformal inference~\cite{xu2023sequential} further support treating temporal dependence as part of validation.
 
 Conformal prediction offers finite-sample validity under exchangeability, but sequential dependence and distribution drift require additional care~\cite{vovk2005algorithmic,romano2019conformal}. Barber et al.~\cite{barber2023conformal} develop methods beyond exchangeability, while Zaffran et al.~\cite{zaffran2022adaptive} adapt conformal scores to time-series forecasting. Recent work also studies component-wise exchangeability for decomposed time series~\cite{prinzhorn2024conformal}. These results motivate our conservative reporting: empirical intervals are evaluated by condition and horizon, conformal-style intervals are reported only when calibration is sufficient, and coverage is not interpreted as guaranteed under the rotating observation process. To our knowledge, prior surveillance nowcasting and conformal forecasting studies have not combined a four-state bulletin audit, reporting-aware reconstruction, trajectory distortion, and multi-mechanism stress testing in one district-week-condition benchmark. This is the specific gap addressed by Project A.
 
@@ -267,6 +271,18 @@ Zaffran, M., Dieuleveut, A., Lozano, A.C., Romano, Y.: Adaptive conformal predic
 
 \bibitem{prinzhorn2024conformal}
 Prinzhorn, D., Nijdam, T., van der Linden, P., Timans, A.: Conformal time series decomposition with component-wise exchangeability. In: Proceedings of the Thirteenth Symposium on Conformal and Probabilistic Prediction with Applications, PMLR, vol. 230, pp. 432--465 (2024)
+
+\bibitem{greene2021nobbs}
+Greene, S.K., McGibbon, E., Simanek, A.M., et al.: Nowcasting for real-time COVID-19 tracking in New York City: An evaluation using reportable disease data from early in the pandemic. JMIR Public Health and Surveillance \textbf{7}(1), e25538 (2021). \doi{10.2196/25538}
+
+\bibitem{vanderKassteele2022regional}
+van de Kassteele, J., van Asten, L., van den Wijngaard, C., et al.: Regional now- and forecasting for data reported with delay: Toward surveillance of COVID-19 infections. Epidemics \textbf{40}, 100626 (2022). \doi{10.1016/j.epidem.2022.100626}
+
+\bibitem{chernozhukov2018exact}
+Chernozhukov, V., Wuthrich, K., Zhu, Y.: Exact and robust conformal inference methods for predictive machine learning with dependent data. In: Proceedings of the 21st International Conference on Artificial Intelligence and Statistics, PMLR, vol. 84, pp. 732--749 (2018)
+
+\bibitem{xu2023sequential}
+Xu, C., Xie, Y.: Sequential predictive conformal inference for time series. In: Proceedings of the 40th International Conference on Machine Learning, PMLR, vol. 202, pp. 38707--38727 (2023)
 
 \bibitem{nawab2026surveillance}
 Nawab, S., Khan, G., Abbas, A., et al.: District-week notifiable infectious disease surveillance data for Khyber Pakhtunkhwa, Pakistan, 2023--2026. Mendeley Data, version 1 (2026). \doi{10.17632/9yzvfgrhkt.1}
