@@ -166,6 +166,13 @@ The four-state audit produced the panel composition in Table~\ref{tab:data}. The
 
 On the locked final block, the pooled four-observation moving average was the strongest baseline. At horizon one, zero-fill and reporting-aware MAE were 30.1934 and 30.1703, respectively. At horizons two and four, the corresponding MAE values were 30.4764 versus 30.4514 and 31.7226 versus 31.6950. The contrast is small for the complete six-condition set. In the rotating-condition stress test, paired gains favored reporting-aware preprocessing by 0.167 MAE for last-value and 0.634 MAE for seasonal-naive at horizon one, with bootstrap intervals [0.057, 0.299] and [0.421, 0.876].
 
+\begin{figure}
+\centering
+\includegraphics[width=\columnwidth]{figure3_paired_errors.png}
+\caption{Paired forecasting errors on the locked test block. Reporting-aware reconstruction is compared with zero-fill across complete and rotating condition sets and three horizons.}
+\label{fig:paired-errors}
+\end{figure}
+
 \subsection{Trajectory distortion and uncertainty}
 
 The trajectory case study makes the preprocessing difference visible. We quantify distortion on censored weeks with
@@ -178,6 +185,13 @@ and separately report the fraction of censored weeks with relative distortion ab
 \centering
 \includegraphics[width=\textwidth]{figure5_trajectory_distortion.png}
 \caption{Trajectory distortion for two rotating conditions. The red reconstruction treats an unobserved week as zero, whereas the teal reconstruction carries forward the last observed count. Shaded intervals mark structurally unreported weeks.}\label{fig:trajectory}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=\columnwidth]{figure4_error_coverage.png}
+\caption{Error and interval coverage by disease and horizon. Point-error magnitude and nominal coverage vary across conditions, motivating stratified reporting.}
+\label{fig:coverage}
 \end{figure}
 
 \begin{table}
