@@ -44,30 +44,32 @@ The contributions are fourfold. First, we provide an auditable panel constructio
 The paper is organized as follows. Section~\ref{sec:related} reviews relevant forecasting and missingness perspectives. Section~\ref{sec:data} describes the surveillance panel and observation states. Section~\ref{sec:method} presents reconstruction, features, models, and evaluation. Section~\ref{sec:protocol} defines the experiments. Section~\ref{sec:results} reports the findings, followed by discussion and limitations in Section~\ref{sec:discussion} and conclusions in Section~\ref{sec:conclusion}.
 
 \section{Related Work}\label{sec:related}
+\begingroup\sloppy
 
-\subsection{Missingness is part of the estimand}
+\subsection{Surveillance missingness and forecasting}
 
 The classical missing-data literature distinguishes missing completely at random, missing at random, and missing not at random (MCAR, MAR, and MNAR)~\cite{rubin1976inference,little2019statistical}. These labels are assumptions about the joint data and observation process, not empirical properties that can be established from a single classifier. Diggle and Kenward~\cite{diggle1994informative} showed that informative dropout in longitudinal data can bias both regression parameters and predicted trajectories when the probability of observation depends on unobserved outcomes. This perspective is directly relevant to surveillance tables: the object being predicted, the population on which the error is evaluated, and the mechanism that determines which cells are recorded must be specified together. Our four-state audit operationalizes this requirement by separating structural absence, district-level non-reporting, reported-but-not-recorded values, and observed numeric counts.
 
-\subsection{Epidemiological reporting delay and nowcasting}
+\paragraph{Reporting delay and nowcasting.}
 
 Epidemiological nowcasting work typically models events that have occurred but have not yet appeared in the reporting stream. Bastos et al.~\cite{bastos2019reporting} formulate reporting delay as a censoring problem and use a Bayesian hierarchical model to correct a runoff triangle while quantifying uncertainty. Their framework models the delay from event occurrence to eventual report and allows temporal and spatial variation in that delay. It therefore addresses a different missingness geometry from the present study. In our data, a condition can be absent because of a rotating bulletin layout or a district-cell non-report, with no guarantee that the value will later be revealed. We do not claim to recover the unobserved disease burden. Instead, we quantify how the observation state changes the validity of retrospective forecasting and evaluation. This distinction avoids conflating delayed observability with permanent underreporting, a distinction also emphasized in the surveillance nowcasting literature~\cite{bastos2019reporting}.
 
-\subsection{Intermittent counts and zero observations}
+\paragraph{Intermittent counts and zero observations.}
 
 Intermittent-demand forecasting treats zero periods and positive arrivals as distinct components. Croston's method updates an estimate of nonzero demand size and an inter-arrival interval separately~\cite{croston1972forecasting}; subsequent work documented the sensitivity of intermittent-demand accuracy to the method and error measure~\cite{syntetos2005accuracy}. These methods provide useful intuition for disease series with sporadic incidence, but a surveillance omission is not necessarily a true zero-demand period. Applying an intermittent-demand model directly to rotating bulletins can therefore mix epidemiological intermittency with censoring induced by the reporting system. Project A keeps this conceptual distinction explicit and compares zero-fill against a reconstruction that carries forward the latest observed value while retaining mask and missing-run features.
 
-\subsection{Forecasting and observation-aware features}
+\paragraph{Forecasting and observation-aware features.}
 
 Standard forecasting practice recommends chronological evaluation and strong naive or seasonal benchmarks before more complex models~\cite{hyndman2021forecasting}. Gradient-boosted trees are effective for nonlinear interactions among lagged and contextual variables~\cite{ke2017lightgbm}, while Poisson and negative-binomial models provide count-aware statistical comparators. Existing model comparisons generally assume that the missing-value policy is fixed before training and do not audit whether the policy changes the estimand. The contribution here is therefore not a new forecasting architecture. It is a protocol that exposes the observation process as model input, evaluates it under a locked rolling-origin design, and reports when the advantage disappears under temporal regime changes.
 
-\subsection{Uncertainty under temporal dependence}
+\subsection{Uncertainty and the unresolved gap}
 
 Conformal prediction offers finite-sample validity under exchangeability, but sequential dependence and distribution drift require additional care~\cite{vovk2005algorithmic,romano2019conformal}. Barber et al.~\cite{barber2023conformal} develop methods beyond exchangeability, while Zaffran et al.~\cite{zaffran2022adaptive} adapt conformal scores to time-series forecasting. Recent work also studies component-wise exchangeability for decomposed time series~\cite{prinzhorn2024conformal}. These results motivate our conservative reporting: empirical intervals are evaluated by condition and horizon, conformal-style intervals are reported only when calibration is sufficient, and coverage is not interpreted as guaranteed under the rotating observation process. To our knowledge, prior surveillance nowcasting and conformal forecasting studies have not combined a four-state bulletin audit, reporting-aware reconstruction, trajectory distortion, and multi-mechanism stress testing in one district-week-condition benchmark. This is the specific gap addressed by Project A.
 
+\endgroup
 \section{Data and Observation States}\label{sec:data}
 
-\subsection{Surveillance panel}
+\subsection{Surveillance panel and observation states}
 
 The source is a public release of district-week notifiable infectious-disease surveillance data for Khyber Pakhtunkhwa, Pakistan, covering 164 bulletin weeks and 44 reporting units. The long-format file contains 59,824 source rows and 16 conditions. We construct the Cartesian product of weeks, districts, and conditions, yielding 115,456 panel cells. The panel is joined to the condition-presence matrix that records whether a condition was included in a week's bulletin.
 
@@ -92,7 +94,7 @@ Reported but non-recorded & 291 \\
 
 Six conditions are present in every bulletin and form the complete confirmatory set: AD\_noncholera, Malaria, ILI, ALRI\_u5, Bloody\_diarrhoea, and Typhoid. The remaining conditions are rotating and are used as an exploratory stress-test set. This separation is important because a complete condition does not contain condition-level structural absence, so a large zero-fill contrast should not be expected for that group.
 
-\subsection{Four observation states}
+\paragraph{Four observation states.}
 
 For each panel cell, we define an observation state. An observed target is a numeric count in a condition and district that is present in the source row. A true reported zero is an observed numeric zero. A district or cell non-report is a condition that is listed for the week but has no district-cell row. A structural non-report is a condition that is absent from that week's ranked condition columns. A source row with a missing count is retained as reported-but-not-recorded. These states are kept in the data and are never silently collapsed into a single missing-value flag. Let $M_{dct}\in\{0,1\}$ denote whether district $d$, condition $c$, and week $t$ has an observed numeric target, and let $P_{ct}$ denote condition presence in the bulletin. The state encoder used by the pipeline is
 \begin{equation}
@@ -106,15 +108,9 @@ The panel explicitly retains both $M_{dct}$ and $P_{ct}$, so structural absence 
 \caption{Reporting-aware forecasting pipeline. The central panel preserves observation states before the two preprocessing alternatives are compared. Forecasting and uncertainty are evaluated on rolling origins, while observation-process analyses form a complementary diagnostic branch.}\label{fig:pipeline}
 \end{figure}
 
-\begin{figure}
-\centering
-\includegraphics[width=\textwidth]{figure2_reporting_timeline.png}
-\caption{Reporting completeness over time. Navy indicates conditions present in the bulletin and the lighter field indicates periods in which rotating conditions are not listed. The palette is intentionally redundant with the labels so the figure remains interpretable in grayscale.}\label{fig:timeline}
-\end{figure}
-
 \section{Methodology}\label{sec:method}
 
-\subsection{Preprocessing alternatives}
+\subsection{Reconstruction, features, and forecasting models}
 
 For zero-fill, an unobserved historical value is replaced by zero. For reporting-aware reconstruction, the historical value is carried forward from the most recent observed value for the same condition and district. We implement this as a censoring-aware operator
 \begin{equation}
@@ -122,7 +118,7 @@ For zero-fill, an unobserved historical value is replaced by zero. For reporting
 \end{equation}
 The reconstruction is used only to form historical features. Evaluation targets remain the original observed counts, and predictions whose targets are not observed are excluded from the primary error metric. This design avoids treating an imputed target as ground truth.
 
-\subsection{Features and forecasting models}
+\paragraph{Features and forecasting models.}
 
 At each forecast origin $t$, the feature vector contains lags at 1, 2, 4, 8, and 12 weeks, a four-week mean, and sine and cosine seasonal terms:
 \begin{equation}
@@ -136,11 +132,11 @@ Here $m\in\{0,a\}$ denotes zero-fill or aware reconstruction. The observation ve
 
 We evaluate last-value, seasonal-naive, and four-observation moving-average baselines. The extended model family includes ridge regression, log-ridge, Poisson and negative-binomial models, random forest, and LightGBM. The count models are treated as comparative statistical baselines because no population denominator is available for an incidence-rate offset.
 
-\subsection{Evaluation metrics}
+\subsection{Evaluation and observation-process diagnostics}
 
 For observed targets, we report MAE and RMSE. Paired comparisons use the same district, origin, condition, horizon, and method under the two preprocessing alternatives. Bootstrap intervals resample at the appropriate cluster level when dependence is present. The paper focuses on paired differences and their uncertainty rather than presenting the metric definitions as a contribution.
 
-\subsection{Observation-process diagnostics}
+\paragraph{Observation-process diagnostics.}
 
 We fit a predictive presence diagnostic using recent reported volume and condition fixed effects:
 \begin{equation}
@@ -227,6 +223,7 @@ This paper presented an observation-aware forecasting protocol for rotating dise
 
 \begingroup
 \sloppy
+\small
 \begin{thebibliography}{99}
 \bibitem{little2019statistical}
 Little, R.J.A., Rubin, D.B.: Statistical Analysis with Missing Data, 3rd edn. Wiley, Hoboken (2019)
