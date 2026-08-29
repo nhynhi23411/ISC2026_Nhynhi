@@ -112,7 +112,7 @@ The panel explicitly retains both $M_{dct}$ and $P_{ct}$, so structural absence 
 \caption{Reporting-aware forecasting pipeline. The central panel preserves observation states before the two preprocessing alternatives are compared. Forecasting and uncertainty are evaluated on rolling origins, while observation-process analyses form a complementary diagnostic branch.}\label{fig:pipeline}
 \end{figure}
 
-\subsection{Reporting-aware reconstruction and forecasting models}
+\subsection{Reconstruction and forecasting models}
 
 For zero-fill, an unobserved historical value is replaced by zero. For reporting-aware reconstruction, the historical value is carried forward from the most recent observed value for the same condition and district. We implement this as a censoring-aware operator
 \begin{equation}
