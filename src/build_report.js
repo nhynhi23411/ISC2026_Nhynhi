@@ -378,7 +378,27 @@ children.push(P(
   "Trong thí nghiệm có đối chứng này (giá trị thật vẫn được biết, chỉ tiêm missingness vào lịch sử huấn luyện), zero-fill luôn có MAE cao hơn reporting-aware, và chênh lệch zero − aware lần lượt là +0,76, +0,56 và +1,71 ở 10%, 20% và 40%. Đây là bằng chứng thực nghiệm có kiểm soát trong mô phỏng, không phải bằng chứng nhân quả về gánh nặng bệnh thật."
 ));
 
-children.push(H2("5.13 Hiệu năng hệ thống"));
+children.push(H2("5.13 Stress test đa cơ chế missingness"));
+children.push(P(
+  "Để kiểm tra độ bền của kết luận, một stress test độc lập được chạy trên sáu bệnh complete với năm mức missingness lịch sử (10%, 20%, 40%, 60%, 80%), ba cơ chế tiêm (MCAR ngẫu nhiên, outage theo block liên tiếp, và censor phụ thuộc mức ca), ba horizon (1, 2, 4 tuần), 20 lần lặp và cluster-bootstrap 95%. Chỉ mask của lịch sử trước test bị thay đổi; toàn bộ 20 origin cuối và target của chúng được khóa nguyên vẹn."
+));
+children.push(makeTable(
+  ["Cơ chế", "Missingness", "Horizon", "MAE zero", "MAE aware", "Δ zero − aware (95% CI)"],
+  [
+    ["MCAR", "40%", "4", "65,47", "59,46", "+6,01 [3,77; 8,64]"],
+    ["MCAR", "80%", "4", "72,24", "60,41", "+11,83 [7,04; 17,22]"],
+    ["Block outage", "40%", "4", "66,05", "59,98", "+6,07 [3,39; 9,63]"],
+    ["Block outage", "80%", "4", "71,81", "63,30", "+8,51 [4,58; 13,26]"],
+    ["Value-dependent", "40%", "4", "64,05", "59,18", "+4,87 [2,69; 7,55]"],
+    ["Value-dependent", "80%", "4", "72,38", "59,98", "+12,40 [7,56; 18,46]"],
+  ],
+  [2200, 1500, 1100, 1500, 1500, 3000],
+));
+children.push(P(
+  "Reporting-aware giữ lợi thế ở cả ba cơ chế và lợi thế tăng rõ theo tỷ lệ missingness, đặc biệt tại horizon dài. Ở mức 40% và horizon 4, chênh lệch zero − aware khoảng 4,87–6,07 MAE; ở mức 80%, khoảng 8,51–12,40 MAE, với toàn bộ khoảng tin cậy bootstrap nằm trên 0. Kết quả này củng cố kết luận rằng zero-filling không chỉ thất bại dưới một kiểu missingness duy nhất. Đây vẫn là bằng chứng mô phỏng có kiểm soát trên protocol nghiên cứu, không phải ước lượng nhân quả về incidence thật."
+));
+
+children.push(H2("5.14 Hiệu năng hệ thống"));
 children.push(makeTable(
   ["Chỉ số", "Giá trị"],
   [

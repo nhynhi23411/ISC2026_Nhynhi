@@ -1,0 +1,39 @@
+{
+  "status": "ok",
+  "simulation_scope": "historical observation masks only; locked test targets untouched",
+  "mechanisms": [
+    "mcar",
+    "block",
+    "value_dependent"
+  ],
+  "rates": [
+    0.1,
+    0.2,
+    0.4,
+    0.6,
+    0.8
+  ],
+  "horizons": [
+    1,
+    2,
+    4
+  ],
+  "repeats": 20,
+  "bootstrap_draws": 2000,
+  "conditions": [
+    "AD_noncholera",
+    "Malaria",
+    "ILI",
+    "ALRI_u5",
+    "Bloody_diarrhoea",
+    "Typhoid"
+  ],
+  "districts": 44,
+  "test_origins": 20,
+  "replicate_rows": 199800,
+  "cluster_rows": 9990,
+  "summary_rows": 45,
+  "seed": 20260826,
+  "wall_time_seconds": 79.87,
+  "modal_used": false
+}

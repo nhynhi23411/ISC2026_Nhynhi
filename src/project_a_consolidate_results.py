@@ -120,6 +120,14 @@ def main():
     else:
         data["missingness_simulation"] = None
 
+    # New multi-mechanism stress test: higher missingness rates, outage blocks,
+    # and value-dependent censoring. Keep the full summary auditable while the
+    # manuscript can quote selected rows without re-reading large predictions.
+    stress = safe_read_csv(LOCAL / "missingness_stress_summary.csv")
+    data["missingness_stress_summary"] = stress.to_dict(orient="records") if stress is not None else None
+    stress_man = LOCAL / "missingness_stress_manifest.json"
+    data["missingness_stress_manifest"] = json.loads(stress_man.read_text(encoding="utf-8")) if stress_man.exists() else None
+
     # Latest novelty outputs are maintained separately from the original
     # Modal bundle; include them so the DOCX and package have one auditable
     # source of truth rather than stale null placeholders.

@@ -38,6 +38,10 @@ Project A kiểm tra một vấn đề dữ liệu trong giám sát bệnh theo 
 - CQR: coverage gần nominal ở tổ hợp đủ dữ liệu; 30 tổ hợp bị skip.
 - Benchmark: build panel `6.49 s`, refresh `0.82 s`, peak memory `42.4 MB`.
 
+## Stress test đa cơ chế (bổ sung 2026-08-29)
+
+`src/project_a_missingness_stress.py` mở rộng simulation lên 10/20/40/60/80% missingness lịch sử, ba cơ chế (MCAR, outage theo block, value-dependent censoring), ba horizon (1/2/4), 20 repetitions và cluster-bootstrap 95%. Test block cuối vẫn được khóa nguyên vẹn; script chạy CPU local và không gọi Modal. Các file tóm tắt tương ứng nằm trong `results/missingness_stress_summary.csv` và `results/missingness_stress_manifest.json`.
+
 ## Ghi chú kiểm tra DOCX
 
 DOCX đã được kiểm tra cấu trúc bằng python-docx, heading audit và image audit. Visual render bằng LibreOffice/soffice chưa hoàn tất vì môi trường hiện tại không có `soffice`; cần chạy lại render QA trước khi gửi bản in cuối.
